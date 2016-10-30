@@ -25,6 +25,7 @@ public class InputTest : MonoBehaviour
             {
                 targetPos.position = _hit.point;
                 projectile.height += Time.deltaTime * 100;
+                projectile.height = Mathf.Clamp(projectile.height, 0, 58);
             }
         }
 
