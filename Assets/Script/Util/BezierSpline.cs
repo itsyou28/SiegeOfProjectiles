@@ -15,14 +15,23 @@ public static class BezierSpline
     /// <param name="cntrl2">중간점2. 이 점은 반드시 지나지 않는다. 근처를 지나는 곡선이 생긴다. </param>
     /// <param name="cntrl4">최종점. u가 1이었을 때 이 값이 반환된다. </param>
     public static float BEZIER_SPLINE(
-        float u, float u_2, float u_3, float cntrl0, float cntrl1, float cntrl2, float cntrl3)
+           float u, float u_2, float u_3, float cntrl0, float cntrl1, float cntrl2, float cntrl3)
     {
-        return ((-1.0f * u_3 + 3.0f * u_2 - 3.0f * u + 1.0f) * cntrl0 +
-          (3.0f * u_3 - 6.0f * u_2 + 3.0f * u + 0.0f) * cntrl1 +
-          (-3.0f * u_3 + 3.0f * u_2 + 0.0f * u + 0.0f) * cntrl2 +
-          (1.0f * u_3 + 0.0f * u_2 + 0.0f * u + 0.0f) * cntrl3
+        return ((-u_3 + 3.0f * u_2 - 3.0f * u + 1.0f) * cntrl0 +
+          (3.0f * u_3 - 6.0f * u_2 + 3.0f * u) * cntrl1 +
+          (-3.0f * u_3 + 3.0f * u_2) * cntrl2 +
+          (u_3) * cntrl3
           );
     }
+    //public static float BEZIER_SPLINE(
+    //   float u, float u_2, float u_3, float cntrl0, float cntrl1, float cntrl2, float cntrl3)
+    //{
+    //    return ((-1.0f * u_3 + 3.0f * u_2 - 3.0f * u + 1.0f) * cntrl0 +
+    //      (3.0f * u_3 - 6.0f * u_2 + 3.0f * u + 0.0f) * cntrl1 +
+    //      (-3.0f * u_3 + 3.0f * u_2 + 0.0f * u + 0.0f) * cntrl2 +
+    //      (1.0f * u_3 + 0.0f * u_2 + 0.0f * u + 0.0f) * cntrl3
+    //      );
+    //}
 }
 
 public class CBezierSpline
@@ -39,6 +48,16 @@ public class CBezierSpline
         m_fArrayControlPoint[1] = cp2;
         m_fArrayControlPoint[2] = cp3;
         m_fArrayControlPoint[3] = cp4;
+    }
+
+    public void SetCP2(float cp2)
+    {
+        m_fArrayControlPoint[1] = cp2;
+    }
+
+    public void SetCP3(float cp3)
+    {
+        m_fArrayControlPoint[2] = cp3;
     }
 
     /// <summary>
