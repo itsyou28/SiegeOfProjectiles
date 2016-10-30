@@ -5,6 +5,7 @@ public class FireProjectiles : MonoBehaviour {
 
     public Transform from;
     public Transform to;
+    public Transform center;
 
     CBezierSpline sline;
 
@@ -21,26 +22,31 @@ public class FireProjectiles : MonoBehaviour {
     {
         accumeTime += Time.deltaTime;
 
-        Vector3 targetPos = Vector3.Lerp(from.position, to.position, accumeTime * speed);
+        targetPos = Vector3.Lerp(from.position, to.position, accumeTime * speed);
         targetPos.y = sline.GetB_Spline(accumeTime * speed);
 
         transform.position = targetPos;
     }
 
-    const float speedMin = 0.5f;
-    const float speedMax = 5;
+    const float speedMin = 0.3f;
+    const float speedMax = 3;
     const float speedSum = speedMin + speedMax;
-    const float max = 120;
+    const float max = 220;
 
     float moveDistance = 0;
+    Vector3 centerPos, targetPos;
 
     public void Fire()
     {
         accumeTime = 0;
-        moveDistance = Vector3.Distance(from.position, to.position);
-        Debug.Log(moveDistance + " // " + height);
-        moveDistance *= (height * 0.01f);
-        Debug.Log(moveDistance);
+
+        centerPos = Vector3.Lerp(from.position, to.position, 0.5f);
+        centerPos.y = height;
+        center.position = centerPos;
+        moveDistance = Vector3.Distance(from.position, centerPos) +
+            Vector3.Distance(centerPos, to.position);
+        //Debug.Log("distance : " + moveDistance + " // height : " + height);
+        //Debug.Log("result (0~"+max+") : " + moveDistance);
         moveDistance = Mathf.Clamp(moveDistance, 0, max);
         
         speed = speedSum - BK_Function.ConvertRange(0, max, speedMin, speedMax, moveDistance);
