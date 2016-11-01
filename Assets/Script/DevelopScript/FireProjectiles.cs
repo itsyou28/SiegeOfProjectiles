@@ -13,6 +13,7 @@ public class FireProjectiles : MonoBehaviour {
     public float height = 50;
     public float speed = 1; //0~1 0에 가까울수록 느려진다. 
 
+    float targetTime = 0;
     void Awake()
     {
         sline = new global::CBezierSpline(from.position.y, height, height*1.2f, to.position.y);
@@ -22,10 +23,16 @@ public class FireProjectiles : MonoBehaviour {
     {
         accumeTime += Time.deltaTime;
 
-        targetPos = Vector3.Lerp(from.position, to.position, accumeTime * speed);
-        targetPos.y = sline.GetB_Spline(accumeTime * speed);
+        targetTime = accumeTime * speed;
+        targetPos = Vector3.Lerp(from.position, to.position, targetTime);
+        targetPos.y = sline.GetB_Spline(targetTime);
 
         transform.position = targetPos;
+
+        targetPos = Vector3.Lerp(from.position, to.position, targetTime+0.01f);
+        targetPos.y = sline.GetB_Spline(targetTime + 0.01f);
+
+        transform.LookAt(targetPos);
     }
 
     const float speedMin = 0.3f;
