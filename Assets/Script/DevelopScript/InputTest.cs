@@ -4,17 +4,20 @@ using System.Collections;
 public class InputTest : MonoBehaviour
 {
     public Transform targetPos;
-    public FireProjectiles projectile;
+    public Transform player;
+
+    Projectile projectile;
+    float aimHeight;
 
     Ray _ray;
     RaycastHit _hit;
     
     void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
-            projectile.height = 0;
+            projectile = ProjectilePool.Inst.Pop();
+            aimHeight = 0;
         }
 
         if (Input.GetMouseButton(0))
@@ -24,12 +27,14 @@ public class InputTest : MonoBehaviour
             if(Physics.Raycast(_ray, out _hit))
             {
                 targetPos.position = _hit.point;
-                projectile.height += Time.deltaTime * 70;
-                projectile.height = Mathf.Clamp(projectile.height, 0, 58);
+                aimHeight += Time.deltaTime * 70;
+                aimHeight = Mathf.Clamp(aimHeight, 0, 58);
             }
         }
 
         if (Input.GetMouseButtonUp(0))
-            projectile.Fire();
+        {
+            projectile.Fire(player.position, targetPos.position, aimHeight);
+        }
     }
 }
