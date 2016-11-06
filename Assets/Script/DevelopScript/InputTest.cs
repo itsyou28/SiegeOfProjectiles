@@ -4,7 +4,6 @@ using System.Collections;
 public class InputTest : MonoBehaviour
 {
     public Transform targetPos;
-    public Transform player;
 
     Projectile projectile;
     float aimHeight;
@@ -16,7 +15,6 @@ public class InputTest : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            projectile = ProjectilePool.Inst.Pop();
             aimHeight = 0;
         }
 
@@ -34,7 +32,7 @@ public class InputTest : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            projectile.Fire(player.position, targetPos.position, aimHeight);
+            FireManager.Inst.Fire(targetPos.position, aimHeight);
         }
     }
 }
