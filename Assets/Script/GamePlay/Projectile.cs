@@ -33,20 +33,24 @@ public class Projectile : MonoBehaviour
         {
             callback(transform.position);
             callback = null;
+            DestroySelf();
         }
-
-        if (reviseTime >= 1)
+        
+        if (reviseTime >= 1.5f)
             DestroySelf();
 
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime);
-        targetPos.y = sline.GetB_Spline(reviseTime);
+        if(reviseTime <= 1.0f)
+        {
+            targetPos = Vector3.Lerp(fromPos, toPos, reviseTime);
+            targetPos.y = sline.GetB_Spline(reviseTime);
 
-        transform.position = targetPos;
+            transform.position = targetPos;
 
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
-        targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
+            targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
+            targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
 
-        transform.LookAt(targetPos);
+            transform.LookAt(targetPos);
+        }
     }
 
     void DestroySelf()
@@ -83,12 +87,13 @@ public class Projectile : MonoBehaviour
         sline.SetCP2(height);
         sline.SetCP3(height * 1.2f);
 
+
         transform.position = fromPos;
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
-        targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
-        Debug.Log(targetPos);
+        targetPos = Vector3.Lerp(fromPos, toPos, 0.01f);
+        targetPos.y = sline.GetB_Spline(0.01f);
         transform.LookAt(targetPos);
 
         gameObject.SetActive(true);
+
     }
 }
