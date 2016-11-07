@@ -20,12 +20,15 @@ public class ProjectilePool : MonoBehaviour
 
     void Awake()
     {
-        pool = new ObjectPool<Projectile>(300, 100, CreateProjectile);
+        pool = new ObjectPool<Projectile>(10, 5, CreateProjectile);
     }
 
+    static int id = 0;
     Projectile CreateProjectile()
     {
         GameObject obj = Instantiate(origin);
+        id++;
+        obj.name = id.ToString();
         obj.transform.parent = transform;
         return obj.GetComponent<Projectile>();
     }
@@ -37,6 +40,7 @@ public class ProjectilePool : MonoBehaviour
 
     public void Push(Projectile target)
     {
+        target.gameObject.transform.SetParent(transform);
         pool.push(target);
     }
 }
