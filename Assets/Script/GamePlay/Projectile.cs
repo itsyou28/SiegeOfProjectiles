@@ -23,6 +23,17 @@ public class Projectile : MonoBehaviour
     float accumeTime = 0;
     float reviseTime = 0;
 
+    bool isCollide = false;
+
+    TrailRenderer _trail;
+    Collider _col;
+
+    void Awake()
+    {
+        _trail = GetComponent<TrailRenderer>();
+        _col = GetComponent<Collider>();
+    }
+
     void Update()
     {
         accumeTime += Time.deltaTime;
@@ -33,20 +44,26 @@ public class Projectile : MonoBehaviour
         {
             callback(transform.position);
             callback = null;
+            DestroySelf();
         }
-
-        if (reviseTime >= 1)
+        
+        if (reviseTime >= 3.0f)
             DestroySelf();
 
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime);
-        targetPos.y = sline.GetB_Spline(reviseTime);
+        if (reviseTime <= 1.0f && !isCollide)
+        {
+            targetPos = Vector3.Lerp(fromPos, toPos, reviseTime);
+            targetPos.y = sline.GetB_Spline(reviseTime);
 
-        transform.position = targetPos;
+            transform.position = targetPos;
 
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
-        targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
+            targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
+            targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
 
-        transform.LookAt(targetPos);
+            transform.LookAt(targetPos);
+        }
+        else
+            _col.enabled = false;
     }
 
     void DestroySelf()
@@ -57,8 +74,21 @@ public class Projectile : MonoBehaviour
 
     callbackDispersion callback = null;
 
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.CompareTag("Player"))
+        {
+
+        isCollide = true;
+        transform.SetParent(col.transform);
+            _trail.enabled = false;
+            _col.enabled = false;
+        }
+    }
+
     public void Fire(Vector3 from, Vector3 to, float aimHeight, callbackDispersion _callback = null)
     {
+        isCollide = false;
         fromPos = from;
         toPos = to;
         height = aimHeight;
@@ -83,12 +113,15 @@ public class Projectile : MonoBehaviour
         sline.SetCP2(height);
         sline.SetCP3(height * 1.2f);
 
+
         transform.position = fromPos;
-        targetPos = Vector3.Lerp(fromPos, toPos, reviseTime + 0.01f);
-        targetPos.y = sline.GetB_Spline(reviseTime + 0.01f);
-        Debug.Log(targetPos);
+        targetPos = Vector3.Lerp(fromPos, toPos, 0.01f);
+        targetPos.y = sline.GetB_Spline(0.01f);
         transform.LookAt(targetPos);
 
         gameObject.SetActive(true);
+
+        _trail.enabled = true;
+        _col.enabled = true;
     }
 }

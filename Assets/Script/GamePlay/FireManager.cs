@@ -30,26 +30,19 @@ public class FireManager : MonoBehaviour
 
     void DispersionStart(Vector3 from)
     {
-        StartCoroutine(Dispersion(from));
-    }
-
-    IEnumerator Dispersion(Vector3 from)
-    {
         Vector3 randPos = Vector3.zero;
         Projectile dispersionBullet;
 
         float range = 10;
 
-        for (int count = 0; count < 50; count++)
+        for (int count = 0; count < Mathf.FloorToInt(targetHeight*0.25f); count++)
         {
             randPos.x = Random.Range(targetPos.x - range, targetPos.x + range);
             randPos.z = Random.Range(targetPos.z - range, targetPos.z + range);
 
             dispersionBullet = ProjectilePool.Inst.Pop();
             dispersionBullet.Fire(from, randPos, targetHeight);
-
-            yield return true;
         }
-
     }
+    
 }
