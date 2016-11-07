@@ -23,6 +23,17 @@ public class Projectile : MonoBehaviour
     float accumeTime = 0;
     float reviseTime = 0;
 
+    bool isCollide = false;
+
+    TrailRenderer _trail;
+    Collider _col;
+
+    void Awake()
+    {
+        _trail = GetComponent<TrailRenderer>();
+        _col = GetComponent<Collider>();
+    }
+
     void Update()
     {
         accumeTime += Time.deltaTime;
@@ -36,10 +47,10 @@ public class Projectile : MonoBehaviour
             DestroySelf();
         }
         
-        if (reviseTime >= 1.5f)
+        if (reviseTime >= 3.0f)
             DestroySelf();
 
-        if(reviseTime <= 1.0f)
+        if (reviseTime <= 1.0f && !isCollide)
         {
             targetPos = Vector3.Lerp(fromPos, toPos, reviseTime);
             targetPos.y = sline.GetB_Spline(reviseTime);
@@ -51,6 +62,8 @@ public class Projectile : MonoBehaviour
 
             transform.LookAt(targetPos);
         }
+        else
+            _col.enabled = false;
     }
 
     void DestroySelf()
@@ -61,8 +74,21 @@ public class Projectile : MonoBehaviour
 
     callbackDispersion callback = null;
 
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.CompareTag("Player"))
+        {
+
+        isCollide = true;
+        transform.SetParent(col.transform);
+            _trail.enabled = false;
+            _col.enabled = false;
+        }
+    }
+
     public void Fire(Vector3 from, Vector3 to, float aimHeight, callbackDispersion _callback = null)
     {
+        isCollide = false;
         fromPos = from;
         toPos = to;
         height = aimHeight;
@@ -95,5 +121,7 @@ public class Projectile : MonoBehaviour
 
         gameObject.SetActive(true);
 
+        _trail.enabled = true;
+        _col.enabled = true;
     }
 }

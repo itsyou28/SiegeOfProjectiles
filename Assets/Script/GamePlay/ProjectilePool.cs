@@ -40,6 +40,7 @@ public class ProjectilePool : MonoBehaviour
 
     public void Push(Projectile target)
     {
+        target.gameObject.transform.SetParent(transform);
         pool.push(target);
     }
 }
