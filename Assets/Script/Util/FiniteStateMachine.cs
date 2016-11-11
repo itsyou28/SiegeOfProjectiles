@@ -34,17 +34,8 @@ public enum TRANS_PARAM_ID
     TRIGGER_BACKBTN,
     TRIGGER_CLOSE,
     TRIGGER_NEXT,
-    TRIGGER_PLAY,
-    TRIGGER_RECORD,
-    TRIGGER_CHANGE_SPEED,
     BOOL_IAP_READY,
-    INT_USERSTORY_STATE,
-    INT_MAIN_STATE,
-    INT_MAIN_SELECT_MODE,
-    INT_COMPARE_SELECT_MODE, //2:LEFT(VIDEO, RECORD), 3:RIGHT(VIDEO,3D)
-    BOOL_SELECTED_LEFT_COMPARE_SCREEN,
-    BOOL_SELECTED_RIGHT_COMPARE_SCREEN,
-    TRIGGER_VIDEO_UTIL
+    INT_HP
 }
 
 public enum STATE_ID
@@ -53,31 +44,11 @@ public enum STATE_ID
     AnyState,
     HistoryBack,
     Exit,
-    UserStory_Init,
-    UserStory_Main,
-    UserStory_ImageTraining_Selection,
-    UserStory_Viewer_Selection,
-    UserStory_ImageTraining,
-    UserStory_Viewer,
-    UserStory_ControlSpeed,
-    UserStory_RecordMode,
-    UserStory_Compare_SelectLeftScreen,
-    UserStory_Compare_SelectRightScreen,
-    UserStory_Compare_Parallel,
-    UserStory_Compare_Overlap,
-    UserStory_ExitConfirm,
-    Record_Wait,
-    Record_Countdown,
-    Record_Record,
-    Record_Save,
-    Compare_None_Select,
-    Compare_One_Select,
-    Compare_Two_Select,
-    CSL_StandBy,
-    CSL_Left_SelectVideo,
-    CSL_Right_SelectVideo,
-    CSL_Right_Select3D,
-    UserStory_VideoUtil,
+    Enemy_SearchTarget,
+    Enemy_Move,
+    Enemy_Attack,
+    Enemy_Dead,
+    Enemy_DestroySelf
 }
 
 
