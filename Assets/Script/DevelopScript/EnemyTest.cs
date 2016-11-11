@@ -7,6 +7,8 @@ public class EnemyTest : MonoBehaviour
 
     FSM myFSM;
 
+    STATE_ID curState = STATE_ID.Enemy_Move;
+
     void Awake()
     {
         CreateFSM();
@@ -23,7 +25,13 @@ public class EnemyTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha3))
             _ani.Play("Dead");
 
-        transform.Translate(Vector3.left * 5 * Time.deltaTime);
+        if(curState == STATE_ID.Enemy_Move)
+        {
+            transform.Translate(Vector3.left * 5 * Time.deltaTime);
+
+            if (transform.position.x < -61)
+                myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
+        }
 
         myFSM.TimeCheck();
     }
@@ -41,25 +49,30 @@ public class EnemyTest : MonoBehaviour
 
     void SearchTarget()
     {
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
     void CreateFSM()
     {
         myFSM = new FSM(FSM_ID.NONE);
 
-        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, 5);
+        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, 3);
 
         myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
             new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET)));
         myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_Dead, 0, 0,
             new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 1, TransitionComparisonOperator.LESS)));
 
-        myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget);
-        myFSM.MakeStateFactory(STATE_ID.Enemy_Move);
+        myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
+            new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
+        myFSM.MakeStateFactory(STATE_ID.Enemy_Move,
+            new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
         myFSM.MakeStateFactory(STATE_ID.Enemy_Attack);
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Dead, 
-            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.5f));
+            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.55f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_DestroySelf);
 
@@ -73,8 +86,15 @@ public class EnemyTest : MonoBehaviour
     private void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         Debug.Log(stateID);
+        curState = stateID;
         switch(stateID)
         {
+            case STATE_ID.Enemy_SearchTarget:
+                SearchTarget();
+                break;
+            case STATE_ID.Enemy_Attack:
+                _ani.Play("Attack");
+                break;
             case STATE_ID.Enemy_Dead:
                 _ani.Play("Dead");
                 break;
