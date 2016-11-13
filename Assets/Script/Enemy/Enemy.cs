@@ -7,13 +7,15 @@ public interface iEnemyControl
     void OnShield();
 }
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, iEnemyControl
 {
     public Animator _ani;
 
-    FSM myFSM;
+    protected FSM myFSM;
 
-    STATE_ID curState = STATE_ID.Enemy_Move;
+    protected STATE_ID curState = STATE_ID.Enemy_Move;
+
+    protected float attackRange;
 
     void Awake()
     {
@@ -30,30 +32,30 @@ public class Enemy : MonoBehaviour
         myFSM.TimeCheck();
     }
 
-    protected void MoveToTarget()
+    protected virtual void MoveToTarget()
     {
     }
 
-    public void OnDamage()
+    public virtual void OnDamage()
     {
     }
 
-    public void OnShield()
+    public virtual void OnShield()
     {
 
     }
 
-    void DestroySelf()
+    protected void DestroySelf()
     {
         Destroy(gameObject);
     }
 
-    void SearchTarget()
+    protected virtual void SearchTarget()
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
-    protected void CreateFSM()
+    protected virtual void CreateFSM()
     {
         myFSM = new FSM(FSM_ID.NONE);
 
@@ -64,7 +66,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    protected void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    protected virtual void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         curState = stateID;
     }

@@ -9,7 +9,7 @@ public enum EnemyType
 }
 
 
-public class EnemyTest : MonoBehaviour, iEnemyControl
+public class EnemyTest : MonoBehaviour
 {
     public Animator _ani;
 
@@ -49,7 +49,7 @@ public class EnemyTest : MonoBehaviour, iEnemyControl
         myFSM.TimeCheck();
     }
 
-    public void OnDamage()
+    public void OnTriggerEnter()
     {
         myFSM.SetInt(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
         Debug.Log(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP));
