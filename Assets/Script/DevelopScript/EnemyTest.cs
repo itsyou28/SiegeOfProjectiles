@@ -1,6 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum EnemyType
+{
+    Assault = 0,
+    Shooter,
+    Defender
+}
+
+
 public class EnemyTest : MonoBehaviour
 {
     public Animator _ani;
@@ -9,8 +17,13 @@ public class EnemyTest : MonoBehaviour
 
     STATE_ID curState = STATE_ID.Enemy_Move;
 
+    EnemyType myType = EnemyType.Assault;
+
+    float attackRange = -61;
+
     void Awake()
     {
+        myType = (EnemyType)Random.Range(0, 2);
         CreateFSM();
     }
 
@@ -29,17 +42,22 @@ public class EnemyTest : MonoBehaviour
         {
             transform.Translate(Vector3.left * 5 * Time.deltaTime);
 
-            if (transform.position.x < -61)
+            if (transform.position.x < attackRange)
                 myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
         }
 
         myFSM.TimeCheck();
     }
 
-    void OnTriggerEnter()
+    public void OnTriggerEnter()
     {
         myFSM.SetInt(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
         Debug.Log(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP));
+    }
+
+    public void OnShield()
+    {
+
     }
 
     void DestroySelf()
@@ -49,6 +67,15 @@ public class EnemyTest : MonoBehaviour
 
     void SearchTarget()
     {
+        switch(myType)
+        {
+            case EnemyType.Assault:
+                attackRange = -61;
+                break;
+            case EnemyType.Shooter:
+                attackRange = 0;
+                break;
+        }
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
@@ -93,7 +120,15 @@ public class EnemyTest : MonoBehaviour
                 SearchTarget();
                 break;
             case STATE_ID.Enemy_Attack:
-                _ani.Play("Attack");
+                switch(myType)
+                {
+                    case EnemyType.Assault:
+                        _ani.Play("Attack");
+                        break;
+                    case EnemyType.Shooter:
+                        _ani.Play("Shoot");
+                        break;
+                }
                 break;
             case STATE_ID.Enemy_Dead:
                 _ani.Play("Dead");

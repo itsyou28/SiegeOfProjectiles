@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag("Player"))
+        if(col.CompareTag("EnemyShield") || col.CompareTag("EnemyCore"))
         {
 
         isCollide = true;

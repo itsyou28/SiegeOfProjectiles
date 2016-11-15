@@ -33,9 +33,9 @@ public class FireManager : MonoBehaviour
         Vector3 randPos = Vector3.zero;
         Projectile dispersionBullet;
 
-        float range = 10;
+        float range = targetHeight * 0.2f;
 
-        for (int count = 0; count < Mathf.FloorToInt(targetHeight*0.25f); count++)
+        for (int count = 0; count < Mathf.FloorToInt(targetHeight*0.4f); count++)
         {
             randPos.x = Random.Range(targetPos.x - range, targetPos.x + range);
             randPos.z = Random.Range(targetPos.z - range, targetPos.z + range);

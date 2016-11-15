@@ -35,7 +35,8 @@ public enum TRANS_PARAM_ID
     TRIGGER_CLOSE,
     TRIGGER_NEXT,
     BOOL_IAP_READY,
-    INT_HP
+    INT_HP,
+    TRIGGER_HIT
 }
 
 public enum STATE_ID
@@ -47,7 +48,10 @@ public enum STATE_ID
     Enemy_SearchTarget,
     Enemy_Move,
     Enemy_Attack,
+    Enemy_Damage,
+    Enemy_Idle,
     Enemy_Dead,
+    Enemy_Protection,
     Enemy_DestroySelf
 }
 
