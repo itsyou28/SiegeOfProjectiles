@@ -5,8 +5,9 @@ public class OnDamage : MonoBehaviour
 {
     public Enemy iControl;
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider col)
     {
-        iControl.OnDamage();
+        if(col.CompareTag("PlayerProjectile"))
+            iControl.OnDamage();
     }
 }

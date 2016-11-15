@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public virtual void OnDamage()
     {
+        _ani.Play("Damage");
+        myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
     }
 
     public virtual void OnShield()
@@ -61,8 +64,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
         myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
             new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET)));
-        myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_Dead, 0, 0,
-            new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 1, TransitionComparisonOperator.LESS)));
+        
         
     }
 

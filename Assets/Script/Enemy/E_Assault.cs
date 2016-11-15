@@ -22,7 +22,7 @@ public class E_Assault : Enemy
 
     public override void OnDamage()
     {
-        myFSM.SetInt(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
+        base.OnDamage();
     }
 
     public override void OnShield()
@@ -34,14 +34,25 @@ public class E_Assault : Enemy
         base.CreateFSM();
 
         myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, 3);
-        
+
+        myFSM.GetAnyState().AddTransition(
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)));
+
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
             new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
+
         myFSM.MakeStateFactory(STATE_ID.Enemy_Move,
             new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
+
         myFSM.MakeStateFactory(STATE_ID.Enemy_Attack);
+
+        myFSM.MakeStateFactory(STATE_ID.Enemy_Damage,
+            new TransitionCondition(STATE_ID.Enemy_Dead, 0, 0.4f, 
+                new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 1, TransitionComparisonOperator.LESS)),
+            new TransitionCondition(STATE_ID.HistoryBack, TRANS_ID.HISTORY_BACK, 0.4f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Dead,
             new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.55f));
@@ -63,6 +74,12 @@ public class E_Assault : Enemy
         {
             case STATE_ID.Enemy_SearchTarget:
                 SearchTarget();
+                break;
+            case STATE_ID.Enemy_Move:
+                _ani.Play("run");
+                break;
+            case STATE_ID.Enemy_Idle:
+                _ani.Play("Idle");
                 break;
             case STATE_ID.Enemy_Attack:
                 _ani.Play("Attack");
