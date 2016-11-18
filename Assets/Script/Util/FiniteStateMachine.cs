@@ -36,7 +36,10 @@ public enum TRANS_PARAM_ID
     TRIGGER_NEXT,
     BOOL_IAP_READY,
     INT_HP,
-    TRIGGER_HIT
+    TRIGGER_HIT,
+    TRIGGER_TOWER_DESTROYED,
+    BOOL_HAVE_TARGET,
+    BOOL_IS_ALIVE
 }
 
 public enum STATE_ID
@@ -771,7 +774,7 @@ public class FSM
             Debug.LogWarning("FSM Call Depth is : " + calldepth
                 + " // 재귀호출구조가 되면서 EvnetStateChange callback이 현재 상태만을 매개변수로 역순으로 반복호출됩니다. ");
 
-#if UNITY_EDITOR
+#if _UNITY_EDITOR
         Debug.Log(fsmID + " Transition Start// " + curState.eID + " -> " 
             + dicStateList[nextStateID].eID + " // " + transParamID);
 #endif

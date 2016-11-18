@@ -10,6 +10,8 @@ public class E_Shooter : Enemy
         base.SearchTarget();
 
         attackRange = Random.Range(15,20);
+
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
     protected override void MoveToTarget()
@@ -37,7 +39,8 @@ public class E_Shooter : Enemy
 
         myFSM.GetAnyState().AddTransition(
             new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)));
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT),
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ALIVE, true)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
             new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
@@ -87,6 +90,9 @@ public class E_Shooter : Enemy
                 break;
             case STATE_ID.Enemy_Attack:
                 _ani.Play("Shoot");
+                break;
+            case STATE_ID.Enemy_Damage:
+                _ani.Play("Damage");
                 break;
             case STATE_ID.Enemy_Dead:
                 _ani.Play("Dead");
