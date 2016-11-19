@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: 5904b13bd51b0bc4db5b8f694ba316a7
+timeCreated: 1479518067
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: runner_die_sprite_0
+    21300002: runner_die_sprite_1
+    21300004: runner_die_sprite_2
+    21300006: runner_die_sprite_3
+    21300008: runner_die_sprite_4
+    21300010: runner_die_sprite_5
+    21300012: runner_die_sprite_6
+    21300014: runner_die_sprite_8
+    21300016: runner_die_sprite_10
+    21300018: runner_die_sprite_12
+    21300020: runner_die_sprite_14
+    21300022: runner_die_sprite_16
+    21300024: runner_die_sprite_17
+    21300026: runner_die_sprite_18
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: runner_die_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 194
+        width: 38
+        height: 62
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 194
+        width: 38
+        height: 62
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 194
+        width: 39
+        height: 62
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 193
+        width: 39
+        height: 63
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 130
+        width: 48
+        height: 59
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 194
+        width: 47
+        height: 58
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 131
+        width: 48
+        height: 52
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 131
+        width: 48
+        height: 51
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 131
+        width: 49
+        height: 49
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 131
+        width: 48
+        height: 49
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_14
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 68
+        width: 40
+        height: 51
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_16
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 68
+        width: 41
+        height: 50
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_17
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 68
+        width: 35
+        height: 37
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: runner_die_sprite_18
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 68
+        width: 35
+        height: 37
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,6 +5,7 @@ public class EnemySpawn : MonoBehaviour
 {
     public GameObject E_Assault_Origin;
     public GameObject E_Shooter_Origin;
+    public GameObject E_Defender_Origin;
 
     float accumeTime = 0;
 
@@ -22,7 +23,7 @@ public class EnemySpawn : MonoBehaviour
             int max = Random.Range(0, 2);
             for(int idx=0; idx< max; idx++)
             {
-                int type = Random.Range(0, 2);
+                int type = Random.Range(0, 3);
 
                 switch(type)
                 {
@@ -31,6 +32,9 @@ public class EnemySpawn : MonoBehaviour
                         break;
                     case 1:
                         origin = E_Shooter_Origin;
+                        break;
+                    case 2:
+                        origin = E_Defender_Origin;
                         break;
                 }
 
