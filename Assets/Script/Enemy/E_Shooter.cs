@@ -10,6 +10,8 @@ public class E_Shooter : Enemy
         base.SearchTarget();
 
         attackRange = Random.Range(15,20);
+
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
     protected override void MoveToTarget()
@@ -37,7 +39,8 @@ public class E_Shooter : Enemy
 
         myFSM.GetAnyState().AddTransition(
             new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)));
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT),
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ALIVE, true)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
             new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
@@ -48,7 +51,7 @@ public class E_Shooter : Enemy
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Attack,
-            new TransitionCondition(STATE_ID.Enemy_Idle, 0, 0.4f));
+            new TransitionCondition(STATE_ID.Enemy_Idle, 0, 1.2f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Idle,
             new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0.5f));
@@ -59,7 +62,7 @@ public class E_Shooter : Enemy
             new TransitionCondition(STATE_ID.HistoryBack, TRANS_ID.HISTORY_BACK, 0.4f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Dead,
-            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.55f));
+            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.9f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_DestroySelf);
 
@@ -80,16 +83,19 @@ public class E_Shooter : Enemy
                 SearchTarget();
                 break;
             case STATE_ID.Enemy_Move:
-                _ani.Play("run");
+                _ani.Play("E_S_Move");
                 break;
             case STATE_ID.Enemy_Idle:
-                _ani.Play("Idle");
+                _ani.Play("E_S_Idle");
                 break;
             case STATE_ID.Enemy_Attack:
-                _ani.Play("Shoot");
+                _ani.Play("E_S_Attack");
+                break;
+            case STATE_ID.Enemy_Damage:
+                _ani.Play("E_S_Damage");
                 break;
             case STATE_ID.Enemy_Dead:
-                _ani.Play("Dead");
+                _ani.Play("E_S_Die");
                 break;
             case STATE_ID.Enemy_DestroySelf:
                 DestroySelf();
