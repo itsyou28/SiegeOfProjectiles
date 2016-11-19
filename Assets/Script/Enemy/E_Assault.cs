@@ -29,7 +29,7 @@ public class E_Assault : Enemy
 
     protected override void MoveToTarget()
     {
-        transform.Translate(vDir * 20 * Time.deltaTime);
+        transform.Translate(vDir * 5 * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPos) <= 1)
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);

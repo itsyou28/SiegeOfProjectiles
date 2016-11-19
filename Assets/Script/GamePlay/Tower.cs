@@ -13,7 +13,7 @@ public class Tower : MonoBehaviour
     public Animator _ani;
 
 
-    int HP = 10;
+    int HP = 30;
     bool isDestroyed = false;
 
     public event deleFunc eventDestroyTower;
