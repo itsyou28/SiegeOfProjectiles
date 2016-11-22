@@ -3,22 +3,42 @@ using System.Collections;
 
 public class E_Shooter : Enemy
 {
-
+    Tower targetTower = null;
+    Vector3 targetPos = Vector3.zero;
+    Vector3 vDir = Vector3.zero;
 
     protected override void SearchTarget()
     {
-        base.SearchTarget();
+        StartCoroutine(Search());
+    }
 
-        attackRange = Random.Range(15,20);
+    IEnumerator Search()
+    {
+        yield return true;
+
+        targetTower = GlobalTowerInfo.GetTower();
+
+        if (targetTower == null)
+            myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
+        else
+        {
+            myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, true);
+
+            targetTower.eventDestroyTower += OnTargetTowerDestroyed;
+            targetPos = targetTower.GetRandomFrontPos();
+
+            vDir = targetPos - transform.position;
+            vDir = vDir.normalized;
+        }
 
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
     protected override void MoveToTarget()
     {
-        transform.Translate(Vector3.left * 5 * Time.deltaTime);
+        transform.Translate(vDir * 5 * Time.deltaTime);
 
-        if (transform.position.x < attackRange)
+        if (Vector3.Distance(transform.position, targetPos) <= attackRange)
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
     }
 
@@ -31,51 +51,71 @@ public class E_Shooter : Enemy
     {
     }
 
+    void OnTargetTowerDestroyed()
+    {
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED);
+    }
+
     protected override void CreateFSM()
     {
         base.CreateFSM();
 
-        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, 3);
-
         myFSM.GetAnyState().AddTransition(
-            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT),
-                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ALIVE, true)));
+            new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED),
+                new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 0, TransitionComparisonOperator.GREATER)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
             new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_HAVE_TARGET, true),
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)),
+            new TransitionCondition(STATE_ID.Enemy_Idle, 0, 0,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_HAVE_TARGET, false),
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Move,
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
             new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Attack,
-            new TransitionCondition(STATE_ID.Enemy_Idle, 0, 1.2f));
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
+            new TransitionCondition(STATE_ID.Enemy_Idle, 0, attackTime));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Idle,
-            new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0.5f));
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
+            new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, IdleTime,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_HAVE_TARGET, false)),
+            new TransitionCondition(STATE_ID.Enemy_Move, 0, IdleTime,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_HAVE_TARGET, true),
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false)),
+            new TransitionCondition(STATE_ID.Enemy_Attack, 0, IdleTime,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_HAVE_TARGET, true),
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, true)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Damage,
-            new TransitionCondition(STATE_ID.Enemy_Dead, 0, 0.4f,
+            new TransitionCondition(STATE_ID.Enemy_Dead, 0, damageTime,
                 new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 1, TransitionComparisonOperator.LESS)),
-            new TransitionCondition(STATE_ID.HistoryBack, TRANS_ID.HISTORY_BACK, 0.4f));
+            new TransitionCondition(STATE_ID.Enemy_Idle, 0, damageTime));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Dead,
-            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, 0.9f));
+            new TransitionCondition(STATE_ID.Enemy_DestroySelf, TRANS_ID.TIME, deadTime));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_DestroySelf);
 
         myFSM.EventStateChange += OnChangeState;
 
         myFSM.Resume();
-
-        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
     }
 
     protected override void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         base.OnChangeState(transID, stateID, preStateID);
+
+        Debug.Log(stateID);
 
         switch (stateID)
         {

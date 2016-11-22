@@ -24,7 +24,7 @@ public class EnemySpawn : MonoBehaviour
             for(int idx=0; idx< max; idx++)
             {
                 int type = Random.Range(0, 3);
-
+                //type = 1;
                 switch(type)
                 {
                     case 0:

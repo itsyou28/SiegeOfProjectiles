@@ -34,26 +34,29 @@ public class E_Defender : Enemy
     protected override void CreateFSM()
     {
         base.CreateFSM();
-
-        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, 3);
-
-        myFSM.GetAnyState().AddTransition(
-            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT),
-                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_ALIVE, true)));
+        
+        //myFSM.GetAnyState().AddTransition(
+        //    new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+        //        new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
             new TransitionCondition(STATE_ID.Enemy_Move, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Move,
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
             new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Attack,
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
             new TransitionCondition(STATE_ID.Enemy_Idle, 0, 1.2f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Idle,
+            new TransitionCondition(STATE_ID.Enemy_Damage, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_HIT)),
             new TransitionCondition(STATE_ID.Enemy_Attack, 0, 0.5f));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_Damage,
