@@ -112,7 +112,7 @@ public class E_Defender : Enemy
 
     private void MoveToProtect()
     {
-        if (transform == null)
+        if (targetTransform == null)
             return;
 
         vDir = targetTransform.position - transform.position;
