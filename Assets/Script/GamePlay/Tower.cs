@@ -16,17 +16,43 @@ public class Tower : MonoBehaviour
     public Transform[] frontPos;
     public Animator _ani;
 
+    public Collider attackCollider;
+
 
     int HP = 30;
     bool isDestroyed = false;
 
     public event deleFunc eventDestroyTower;
 
+    Vector3 attackColWaitPos;
+    Vector3 attackColAttackPos;
+
     void Awake()
     {
+        attackColWaitPos = attackCollider.transform.position;
+        attackColAttackPos = attackColWaitPos;
+        attackColAttackPos.x += 20;
         GlobalTowerInfo.Add(this);
     }
 
+    float accumeTime = 0;
+
+    void Update()
+    {
+        accumeTime += Time.deltaTime;
+
+        if(accumeTime>=2 && accumeTime < 3)
+        {
+            attackCollider.transform.position = attackColAttackPos;
+            accumeTime = 3;
+        }
+        if(accumeTime >= 3.3f)
+        {
+            attackCollider.transform.position = attackColWaitPos;
+            accumeTime = 0;
+        }
+    }
+    
     void DestroySelf()
     {
         Debug.Log("Destroy " + gameObject.name);
