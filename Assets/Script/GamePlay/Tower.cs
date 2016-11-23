@@ -3,6 +3,10 @@ using System.Collections;
 
 public delegate void deleFunc();
 
+public class GlobalTowerInfo : GlobalList<Tower>
+{
+}
+
 public class Tower : MonoBehaviour
 {
     //타워 HP 관리
@@ -20,7 +24,7 @@ public class Tower : MonoBehaviour
 
     void Awake()
     {
-        GlobalTowerInfo.AddTower(this);
+        GlobalTowerInfo.Add(this);
     }
 
     void DestroySelf()
@@ -30,7 +34,7 @@ public class Tower : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        GlobalTowerInfo.RemoveTower(this);
+        GlobalTowerInfo.Remove(this);
         eventDestroyTower();
     }
 

@@ -9,7 +9,7 @@ public class EnemySpawn : MonoBehaviour
 
     float accumeTime = 0;
 
-    Vector3 spawnPos = new Vector3(70, 0.11f, 0);
+    Vector3 spawnPos = new Vector3(90, 0.11f, 0);
     float nextSpawnTime = 0.5f;
 
     GameObject origin;
@@ -24,7 +24,7 @@ public class EnemySpawn : MonoBehaviour
             for(int idx=0; idx< max; idx++)
             {
                 int type = Random.Range(0, 3);
-
+                //type = 1;
                 switch(type)
                 {
                     case 0:

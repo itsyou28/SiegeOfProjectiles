@@ -11,23 +11,43 @@ public class Enemy : MonoBehaviour, iEnemyControl
 {
     public Animator _ani;
 
+    [SerializeField]
+    protected float damageTime;
+    [SerializeField]
+    protected float attackTime;
+    [SerializeField]
+    protected float IdleTime;
+    [SerializeField]
+    protected float deadTime;
+
+    [SerializeField]
+    protected int defaultHP;
+
+    [SerializeField]
+    protected float attackRange;
+
+    [SerializeField]
+    protected float moveSpeed;
+
     protected FSM myFSM;
 
     protected STATE_ID curState = STATE_ID.Enemy_Move;
 
-    protected float attackRange;
-    
-    void Awake()
+
+    TextMesh _text;
+
+    protected virtual void Awake()
     {
+        _text = transform.GetComponentInChildren<TextMesh>();
         CreateFSM();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (curState == STATE_ID.Enemy_Move)
         {
@@ -44,10 +64,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
     public virtual void OnDamage()
     {
         myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
-
-        if (myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) <= 0)
-            myFSM.SetBool_NoCondChk(TRANS_PARAM_ID.BOOL_IS_ALIVE, false);
-
+        
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
     }
 
@@ -56,7 +73,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     }
 
-    protected void DestroySelf()
+    protected virtual void DestroySelf()
     {
         Destroy(gameObject);
     }
@@ -68,18 +85,23 @@ public class Enemy : MonoBehaviour, iEnemyControl
     protected virtual void CreateFSM()
     {
         myFSM = new FSM(FSM_ID.NONE);
-
-        myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_IS_ALIVE, true);
-
+        
         myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
             new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET)));
-        
-        
+
+        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, defaultHP);
+        myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
+        myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false);
+
+
     }
 
     protected virtual void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         curState = stateID;
+
+        if(_text != null)
+            _text.text = curState.ToString();
     }
 
 }
