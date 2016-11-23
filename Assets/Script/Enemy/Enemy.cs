@@ -26,6 +26,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
     [SerializeField]
     protected float attackRange;
 
+    [SerializeField]
+    protected float moveSpeed;
+
     protected FSM myFSM;
 
     protected STATE_ID curState = STATE_ID.Enemy_Move;
@@ -33,18 +36,18 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     TextMesh _text;
 
-    void Awake()
+    protected virtual void Awake()
     {
         _text = transform.GetComponentInChildren<TextMesh>();
         CreateFSM();
     }
 
-    void Start()
+    protected virtual void Start()
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (curState == STATE_ID.Enemy_Move)
         {
@@ -70,7 +73,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     }
 
-    protected void DestroySelf()
+    protected virtual void DestroySelf()
     {
         Destroy(gameObject);
     }

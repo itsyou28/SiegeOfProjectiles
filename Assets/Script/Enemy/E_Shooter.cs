@@ -1,11 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public class GlobalShooterList : GlobalList<E_Shooter>
+{
+}
+
 public class E_Shooter : Enemy
 {
+    [SerializeField]
+    Transform protectPos;
+
     Tower targetTower = null;
     Vector3 targetPos = Vector3.zero;
     Vector3 vDir = Vector3.zero;
+
+    public event deleFunc eventDestroyShooter;
+
+    public Transform GetProtectPos()
+    {
+        return protectPos;
+    }
+
+    protected override void Awake()
+    {
+        GlobalShooterList.Add(this);
+        base.Awake();
+    }
 
     protected override void SearchTarget()
     {
@@ -16,7 +36,7 @@ public class E_Shooter : Enemy
     {
         yield return true;
 
-        targetTower = GlobalTowerInfo.GetTower();
+        targetTower = GlobalTowerInfo.GetRandomItem();
 
         if (targetTower == null)
             myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
@@ -24,7 +44,7 @@ public class E_Shooter : Enemy
         {
             myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, true);
 
-            targetTower.eventDestroyTower += OnTargetTowerDestroyed;
+            targetTower.eventDestroyTower += OnTargetDestroyed;
             targetPos = targetTower.GetRandomFrontPos();
 
             vDir = targetPos - transform.position;
@@ -36,10 +56,13 @@ public class E_Shooter : Enemy
 
     protected override void MoveToTarget()
     {
-        transform.Translate(vDir * 5 * Time.deltaTime);
+        transform.Translate(vDir * moveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPos) <= attackRange)
+        {
+            myFSM.SetBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, true);
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
+        }
     }
 
     public override void OnDamage()
@@ -51,9 +74,10 @@ public class E_Shooter : Enemy
     {
     }
 
-    void OnTargetTowerDestroyed()
+    void OnTargetDestroyed()
     {
-        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED);
+        myFSM.SetBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false);
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);
     }
 
     protected override void CreateFSM()
@@ -62,7 +86,7 @@ public class E_Shooter : Enemy
 
         myFSM.GetAnyState().AddTransition(
             new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED),
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED),
                 new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 0, TransitionComparisonOperator.GREATER)));
 
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
@@ -115,8 +139,6 @@ public class E_Shooter : Enemy
     {
         base.OnChangeState(transID, stateID, preStateID);
 
-        Debug.Log(stateID);
-
         switch (stateID)
         {
             case STATE_ID.Enemy_SearchTarget:
@@ -142,5 +164,12 @@ public class E_Shooter : Enemy
                 break;
         }
 
+    }
+
+    protected override void DestroySelf()
+    {
+        if(eventDestroyShooter != null)
+            eventDestroyShooter();
+        base.DestroySelf();
     }
 }

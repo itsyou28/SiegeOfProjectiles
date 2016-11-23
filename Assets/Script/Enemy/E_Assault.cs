@@ -16,7 +16,7 @@ public class E_Assault : Enemy
     {
         yield return true;
 
-        targetTower = GlobalTowerInfo.GetTower();
+        targetTower = GlobalTowerInfo.GetRandomItem();
         
         if (targetTower == null)
             myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
@@ -36,10 +36,13 @@ public class E_Assault : Enemy
 
     protected override void MoveToTarget()
     {
-        transform.Translate(vDir * 5 * Time.deltaTime);
+        transform.Translate(vDir * moveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPos) <= attackRange)
+        {
+            myFSM.SetBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, true);
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
+        }
     }
 
     public void TowerAttack()
@@ -47,7 +50,7 @@ public class E_Assault : Enemy
         if (targetTower != null)
             targetTower.Hit();
         else
-            myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED);
+            myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);
     }
 
     public override void OnDamage()
@@ -61,7 +64,8 @@ public class E_Assault : Enemy
 
     void OnTargetTowerDestroyed()
     {
-        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED);
+        myFSM.SetBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false);
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);
     }
 
     protected override void CreateFSM()
@@ -70,7 +74,7 @@ public class E_Assault : Enemy
 
         myFSM.GetAnyState().AddTransition(
             new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_TOWER_DESTROYED),
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED),
                 new TransCondWithParam(TransitionType.INT, TRANS_PARAM_ID.INT_HP, 0, TransitionComparisonOperator.GREATER)));
         
         myFSM.MakeStateFactory(STATE_ID.Enemy_SearchTarget,
