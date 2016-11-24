@@ -166,6 +166,12 @@ public class E_Shooter : Enemy
 
     }
 
+    public void Fire()
+    {
+        E_Projectile bullet = E_ProjectilePool.Inst.Pop();
+        bullet.Fire(transform.position, targetTower.transform.position, 30);
+    }
+
     protected override void DestroySelf()
     {
         if(eventDestroyShooter != null)
