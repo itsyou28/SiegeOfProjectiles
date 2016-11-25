@@ -9,5 +9,8 @@ public class OnDamage : MonoBehaviour
     {
         if(col.CompareTag("PlayerProjectile"))
             iControl.OnDamage();
+
+        if (col.CompareTag("TowerAttack"))
+            iControl.OnKnuckBackDamage();
     }
 }

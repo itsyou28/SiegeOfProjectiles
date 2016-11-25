@@ -10,9 +10,13 @@ public class E_Shooter : Enemy
     [SerializeField]
     Transform protectPos;
 
+    [SerializeField]
+    Transform firePos;
+
     Tower targetTower = null;
     Vector3 targetPos = Vector3.zero;
     Vector3 vDir = Vector3.zero;
+    Vector3 attackPos = Vector3.zero;
 
     public event deleFunc eventDestroyShooter;
 
@@ -44,6 +48,7 @@ public class E_Shooter : Enemy
         {
             myFSM.SetBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, true);
 
+            attackPos = targetTower.GetCorePos();
             targetTower.eventDestroyTower += OnTargetDestroyed;
             targetPos = targetTower.GetRandomFrontPos();
 
@@ -164,6 +169,20 @@ public class E_Shooter : Enemy
                 break;
         }
 
+    }
+
+    public void Fire()
+    {
+        if(targetTower != null)
+        {
+            E_Projectile bullet = E_ProjectilePool.Inst.Pop();
+            Vector3 tPos = attackPos;
+            tPos.x += Random.Range(0, 10) - 5;
+            tPos.z += Random.Range(0, 10) - 5;
+            tPos.y = 0;
+            tPos.x -= 5;
+            bullet.Fire(firePos.position, tPos, 30);
+        }
     }
 
     protected override void DestroySelf()

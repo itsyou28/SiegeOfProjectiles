@@ -1,9 +1,39 @@
 fileFormatVersion: 2
 guid: f09dfaf68c9306445bc842be4831b40b
-timeCreated: 1479909372
+timeCreated: 1480070036
 licenseType: Pro
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: Charging_sprite_0
+    21300002: Charging_sprite_1
+    21300004: Charging_sprite_2
+    21300006: Charging_sprite_3
+    21300008: Charging_sprite_4
+    21300010: Charging_sprite_5
+    21300012: Charging_sprite_6
+    21300014: Charging_sprite_7
+    21300016: Charging_sprite_8
+    21300018: Charging_sprite_9
+    21300020: Charging_sprite_10
+    21300022: Charging_sprite_11
+    21300024: Charging_sprite_12
+    21300026: Charging_sprite_13
+    21300028: Charging_sprite_14
+    21300030: Charging_sprite_15
+    21300032: Charging_sprite_16
+    21300034: Charging_sprite_17
+    21300036: Charging_sprite_18
+    21300038: Charging_sprite_19
+    21300040: Charging_sprite_20
+    21300042: Charging_sprite_21
+    21300044: Charging_sprite_22
+    21300046: Charging_sprite_23
+    21300048: Charging_sprite_24
+    21300050: Charging_sprite_25
+    21300052: Charging_sprite_26
+    21300054: Charging_sprite_27
+    21300056: Charging_sprite_28
+    21300058: Charging_sprite_29
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,28 +60,418 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: -1
+  textureType: 8
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Charging_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 491
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_11
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 372
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_13
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_14
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_15
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_16
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_17
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 253
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_19
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_20
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_21
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_22
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_23
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 134
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_25
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_26
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_27
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_28
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Charging_sprite_29
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 15
+        width: 164
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
