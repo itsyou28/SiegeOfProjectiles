@@ -70,6 +70,10 @@ public class E_Projectile : MonoBehaviour
         //    transform.SetParent(col.transform);
         //    _col.enabled = false;
         //}
+        if(col.CompareTag("TowerCore"))
+        {
+            isCollide = true;
+        }
     }
 
     public void Fire(Vector3 from, Vector3 to, float aimHeight)

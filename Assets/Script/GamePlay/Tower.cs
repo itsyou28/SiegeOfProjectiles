@@ -13,11 +13,16 @@ public class Tower : MonoBehaviour
     //타워 애니메이션 관리
     //접촉 적 공격 처리
 
-    public Transform[] frontPos;
-    public Animator _ani;
+    [SerializeField]
+    Transform[] frontPos;
+    [SerializeField]
+    Animator _ani;
 
-    public Collider attackCollider;
+    [SerializeField]
+    Collider attackCollider;
 
+    [SerializeField]
+    Transform corePos;
 
     int HP = 30;
     bool isDestroyed = false;
@@ -79,5 +84,10 @@ public class Tower : MonoBehaviour
         int randIdx = Random.Range(0, frontPos.Length);
 
         return frontPos[randIdx].position;
+    }
+
+    public Vector3 GetCorePos()
+    {
+        return corePos.position;
     }
 }
