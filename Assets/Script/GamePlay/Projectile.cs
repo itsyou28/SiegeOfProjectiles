@@ -5,8 +5,13 @@ public delegate void callbackDispersion(Vector3 pos);
 
 public class Projectile : MonoBehaviour
 {
+    [SerializeField]
+    Animator _ani;
+    [SerializeField]
+    ParticleSystem _trailParticle;
+
     const float speedMin = 0.3f;
-    const float speedMax = 3;
+    const float speedMax = 1.5f;
     const float speedSum = speedMin + speedMax;
     const float max = 220;
 
@@ -25,12 +30,10 @@ public class Projectile : MonoBehaviour
 
     bool isCollide = false;
 
-    TrailRenderer _trail;
     Collider _col;
 
     void Awake()
     {
-        _trail = GetComponent<TrailRenderer>();
         _col = GetComponent<Collider>();
     }
 
@@ -62,6 +65,15 @@ public class Projectile : MonoBehaviour
 
             transform.LookAt(targetPos);
         }
+        else if (!isCollide)
+        {
+            if (_ani.GetCurrentAnimatorStateInfo(0).IsName("Projectile_Idle"))
+            {
+                _ani.Play("Hit_Ground");
+                _trailParticle.Stop();
+            }
+            _col.enabled = false;
+        }
         else
             _col.enabled = false;
     }
@@ -76,13 +88,21 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.CompareTag("EnemyShield") || col.CompareTag("EnemyCore"))
+        if(col.CompareTag("EnemyShield"))
         {
-
-        isCollide = true;
-        transform.SetParent(col.transform);
-            _trail.enabled = false;
+            _ani.Play("Projectile_On_Shield");
+            isCollide = true;
+            transform.SetParent(col.transform);
             _col.enabled = false;
+            _trailParticle.Stop();
+        }
+
+        if (col.CompareTag("EnemyCore"))
+        {
+            _ani.Play("Hit_Enemy");
+            isCollide = true;
+            _col.enabled = false;
+            _trailParticle.Stop();
         }
     }
 
@@ -121,7 +141,9 @@ public class Projectile : MonoBehaviour
 
         gameObject.SetActive(true);
 
-        _trail.enabled = true;
         _col.enabled = true;
+
+        _ani.Play("Projectile_Idle");
+        _trailParticle.Play();
     }
 }
