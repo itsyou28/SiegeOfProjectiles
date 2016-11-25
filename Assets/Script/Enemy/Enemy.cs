@@ -73,6 +73,13 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     }
 
+    public virtual void OnKnuckBackDamage()
+    {
+        myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
+
+        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
+    }
+
     protected virtual void DestroySelf()
     {
         Destroy(gameObject);

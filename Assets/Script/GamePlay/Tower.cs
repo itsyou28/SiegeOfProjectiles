@@ -13,20 +13,51 @@ public class Tower : MonoBehaviour
     //타워 애니메이션 관리
     //접촉 적 공격 처리
 
-    public Transform[] frontPos;
-    public Animator _ani;
+    [SerializeField]
+    Transform[] frontPos;
+    [SerializeField]
+    Animator _ani;
 
+    [SerializeField]
+    Collider attackCollider;
+
+    [SerializeField]
+    Transform corePos;
 
     int HP = 30;
     bool isDestroyed = false;
 
     public event deleFunc eventDestroyTower;
 
+    Vector3 attackColWaitPos;
+    Vector3 attackColAttackPos;
+
     void Awake()
     {
+        attackColWaitPos = attackCollider.transform.position;
+        attackColAttackPos = attackColWaitPos;
+        attackColAttackPos.x += 20;
         GlobalTowerInfo.Add(this);
     }
 
+    float accumeTime = 0;
+
+    void Update()
+    {
+        accumeTime += Time.deltaTime;
+
+        if(accumeTime>=2 && accumeTime < 3)
+        {
+            attackCollider.transform.position = attackColAttackPos;
+            accumeTime = 3;
+        }
+        if(accumeTime >= 3.3f)
+        {
+            attackCollider.transform.position = attackColWaitPos;
+            accumeTime = 0;
+        }
+    }
+    
     void DestroySelf()
     {
         Debug.Log("Destroy " + gameObject.name);
@@ -53,5 +84,10 @@ public class Tower : MonoBehaviour
         int randIdx = Random.Range(0, frontPos.Length);
 
         return frontPos[randIdx].position;
+    }
+
+    public Vector3 GetCorePos()
+    {
+        return corePos.position;
     }
 }
