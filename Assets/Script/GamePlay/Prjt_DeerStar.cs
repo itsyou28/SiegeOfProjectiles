@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class E_Projectile : Projectile
+public class Prjt_DeerStar : Projectile
 {
+    [SerializeField]
+    Animator _ani;
+    [SerializeField]
+    ParticleSystem _trailParticle;
+
     const float speedMin = 0.3f;
-    const float speedMax = 1;
+    const float speedMax = 1.5f;
     const float speedSum = speedMin + speedMax;
     const float max = 220;
 
@@ -22,7 +27,7 @@ public class E_Projectile : Projectile
     float reviseTime = 0;
 
     bool isCollide = false;
-    
+
     Collider _col;
 
     void Awake()
@@ -35,7 +40,14 @@ public class E_Projectile : Projectile
         accumeTime += Time.deltaTime;
 
         reviseTime = accumeTime * speed;
-        
+
+        if (callback != null && reviseTime >= 0.3f)
+        {
+            callback(transform.position);
+            callback = null;
+            DestroySelf();
+        }
+
         if (reviseTime >= 3.0f)
             DestroySelf();
 
@@ -51,6 +63,15 @@ public class E_Projectile : Projectile
 
             transform.LookAt(targetPos);
         }
+        else if (!isCollide)
+        {
+            if (_ani.GetCurrentAnimatorStateInfo(0).IsName("Projectile_Idle"))
+            {
+                _ani.Play("Hit_Ground");
+                _trailParticle.Stop();
+            }
+            _col.enabled = false;
+        }
         else
             _col.enabled = false;
     }
@@ -58,21 +79,28 @@ public class E_Projectile : Projectile
     void DestroySelf()
     {
         gameObject.SetActive(false);
-        E_ProjectilePool.Inst.Push(this);
+        DeerStarPool.Inst.Push(this);
     }
-    
+
+    callbackDispersion callback = null;
+
     void OnTriggerEnter(Collider col)
     {
-        //if (col.CompareTag("EnemyShield") || col.CompareTag("EnemyCore"))
-        //{
-
-        //    isCollide = true;
-        //    transform.SetParent(col.transform);
-        //    _col.enabled = false;
-        //}
-        if(col.CompareTag("TowerCore"))
+        if (col.CompareTag("EnemyShield"))
         {
+            _ani.Play("Projectile_On_Shield");
             isCollide = true;
+            transform.SetParent(col.transform);
+            _col.enabled = false;
+            _trailParticle.Stop();
+        }
+
+        if (col.CompareTag("EnemyCore"))
+        {
+            _ani.Play("Hit_Enemy");
+            isCollide = true;
+            _col.enabled = false;
+            _trailParticle.Stop();
         }
     }
 
@@ -82,6 +110,8 @@ public class E_Projectile : Projectile
         fromPos = from;
         toPos = to;
         height = aimHeight;
+
+        callback = _callback;
 
         accumeTime = 0;
 
@@ -93,10 +123,14 @@ public class E_Projectile : Projectile
         moveDistance = Mathf.Clamp(moveDistance, 0, max);
 
         speed = speedSum - BK_Function.ConvertRange(0, max, speedMin, speedMax, moveDistance);
-        
+
+        if (_callback == null)
+            speed *= 0.85f;
+
         sline = new CBezierSpline(fromPos.y, height, height * 1.2f, toPos.y);
         sline.SetCP2(height);
         sline.SetCP3(height * 1.2f);
+
 
         transform.position = fromPos;
         targetPos = Vector3.Lerp(fromPos, toPos, 0.01f);
@@ -104,7 +138,10 @@ public class E_Projectile : Projectile
         transform.LookAt(targetPos);
 
         gameObject.SetActive(true);
-        
+
         _col.enabled = true;
+
+        _ani.Play("Projectile_Idle");
+        _trailParticle.Play();
     }
 }

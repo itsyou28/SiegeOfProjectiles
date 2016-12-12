@@ -3,18 +3,6 @@ using System.Collections;
 
 public class ProjectilePool : MonoBehaviour
 {
-    static private ProjectilePool instance = null;
-    static public ProjectilePool Inst
-    {
-        get
-        {
-            if (instance == null)
-                instance = FindObjectOfType<ProjectilePool>();
-
-            return instance;
-        }
-    }
-
     public GameObject origin;
     ObjectPool<Projectile> pool;
 

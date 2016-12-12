@@ -23,7 +23,7 @@ public class FireManager : MonoBehaviour
     {
         targetPos = to;
         targetHeight = aimHeight;
-        Projectile bullet = ProjectilePool.Inst.Pop();
+        Projectile bullet = DeerStarPool.Inst.Pop();
 
         bullet.Fire(player.position, targetPos, aimHeight, DispersionStart);
     }
@@ -40,7 +40,7 @@ public class FireManager : MonoBehaviour
             randPos.x = Random.Range(targetPos.x - range, targetPos.x + range);
             randPos.z = Random.Range(targetPos.z - range, targetPos.z + range);
 
-            dispersionBullet = ProjectilePool.Inst.Pop();
+            dispersionBullet = DeerStarPool.Inst.Pop();
             dispersionBullet.Fire(from, randPos, targetHeight);
         }
     }

@@ -175,7 +175,7 @@ public class E_Shooter : Enemy
     {
         if(targetTower != null)
         {
-            E_Projectile bullet = E_ProjectilePool.Inst.Pop();
+            Projectile bullet = E_ProjectilePool.Inst.Pop();
             Vector3 tPos = attackPos;
             tPos.x += Random.Range(0, 10) - 5;
             tPos.z += Random.Range(0, 10) - 5;
