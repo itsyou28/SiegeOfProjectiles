@@ -9,4 +9,8 @@ public class Projectile : MonoBehaviour
         Vector3 from, Vector3 to, float aimHeight, callbackDispersion _callback = null)
     {
     }
+
+    public virtual void Fire(Vector3 targetPos)
+    {
+    }
 }
