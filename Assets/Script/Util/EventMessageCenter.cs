@@ -5,12 +5,7 @@ using System.Collections.Generic;
 public enum BK_EVENT
 {
     DEFAULT_EVENT = 0,
-    CSL_CHANGE_LIST,
-    CSL_SELECTED_LIST,
-    CSL_SELECTED_SCREEN_CONTENT,
-    CSL_CHANGE_MODE,
-    Selected_Swing,
-    Selected_Video,
+    OnChangeInputMode
 }
 
 public delegate void EventCallBackFunction(params object[] args);

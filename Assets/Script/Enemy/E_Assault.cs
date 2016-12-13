@@ -52,15 +52,7 @@ public class E_Assault : Enemy
         else
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);
     }
-
-    public override void OnDamage()
-    {
-        base.OnDamage();
-    }
-
-    public override void OnShield()
-    {
-    }
+    
 
     void OnTargetTowerDestroyed()
     {

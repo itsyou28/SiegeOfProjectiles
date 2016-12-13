@@ -5,6 +5,9 @@ public interface iEnemyControl
 {
     void OnDamage();
     void OnShield();
+    void OnKnuckback(float pushpower);
+    void OnMeteo();
+    void OnGlobalAttack();
 }
 
 public class Enemy : MonoBehaviour, iEnemyControl
@@ -29,16 +32,31 @@ public class Enemy : MonoBehaviour, iEnemyControl
     [SerializeField]
     protected float moveSpeed;
 
+    [SerializeField]
+    protected float weight = 1; //1~5 높을수록 뒤로 덜 밀린다. 
+
     protected FSM myFSM;
 
     protected STATE_ID curState = STATE_ID.Enemy_Move;
 
+
+    float knuckback = 0;
+    bool chkRepeat = false;
 
     TextMesh _text;
 
     protected virtual void Awake()
     {
         _text = transform.GetComponentInChildren<TextMesh>();
+
+        OnDamage[] arrCore = GetComponentsInChildren<OnDamage>();
+        foreach (OnDamage target in arrCore)
+            target.iControl = this;
+
+        OnShield[] arrShield = GetComponentsInChildren<OnShield>();
+        foreach (OnShield target in arrShield)
+            target.iControl = this;
+
         CreateFSM();
     }
 
@@ -46,7 +64,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
     }
-
+    
     protected virtual void Update()
     {
         if (curState == STATE_ID.Enemy_Move)
@@ -54,7 +72,19 @@ public class Enemy : MonoBehaviour, iEnemyControl
             MoveToTarget();
         }
 
+        if(knuckback > 0.1f)
+        {
+            transform.Translate(Vector3.right * knuckback * Time.deltaTime);
+            knuckback -= 50 * Time.deltaTime;
+        }
+
         myFSM.TimeCheck();
+    }
+
+    void LateUpdate()
+    {
+        if (chkRepeat)
+            chkRepeat = false;
     }
 
     protected virtual void MoveToTarget()
@@ -68,18 +98,33 @@ public class Enemy : MonoBehaviour, iEnemyControl
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
     }
 
-    public virtual void OnShield()
+    public void OnShield()
     {
-
     }
 
-    public virtual void OnKnuckBackDamage()
+    public void OnKnuckback(float pushpower)
     {
-        myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
-
-        myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
+        knuckback = pushpower - weight;
     }
 
+    public void OnMeteo()
+    {
+        if (chkRepeat)
+            return;
+
+        OnKnuckback(20);
+        
+        chkRepeat = true;
+    }
+
+    public void OnGlobalAttack()
+    {
+        if (chkRepeat)
+            return;
+
+        chkRepeat = true;
+    }
+    
     protected virtual void DestroySelf()
     {
         Destroy(gameObject);

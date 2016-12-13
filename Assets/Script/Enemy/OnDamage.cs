@@ -1,16 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnDamage : MonoBehaviour
+public class OnDamage : OnEnemyCollider
 {
-    public Enemy iControl;
-
-    void OnTriggerEnter(Collider col)
+    protected override void OnTriggerEnter(Collider col)
     {
         if(col.CompareTag("PlayerProjectile"))
             iControl.OnDamage();
 
         if (col.CompareTag("TowerAttack"))
-            iControl.OnKnuckBackDamage();
+        {
+            iControl.OnDamage();
+            iControl.OnKnuckback(8);
+        }
+
+        base.OnTriggerEnter(col);
     }
 }

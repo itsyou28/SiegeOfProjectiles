@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnShield : MonoBehaviour
+public class OnShield : OnEnemyCollider
 {
-    public Enemy iControl;
-
-    void OnTriggerEnter()
+    protected override void OnTriggerEnter(Collider col)
     {
-        iControl.OnShield();
+        if (col.CompareTag("PlayerProjectile"))
+        {
+            iControl.OnShield();
+            iControl.OnKnuckback(10);
+        }
     }
 }

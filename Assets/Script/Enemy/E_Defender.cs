@@ -142,10 +142,7 @@ public class E_Defender : Enemy
     {
         base.OnDamage();
     }
-
-    public override void OnShield()
-    {
-    }
+    
 
     void OnTargetDestroyed()
     {
