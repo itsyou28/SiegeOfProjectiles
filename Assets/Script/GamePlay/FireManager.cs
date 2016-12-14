@@ -34,12 +34,14 @@ public class FireManager : MonoBehaviour
         Projectile dispersionBullet;
 
         float range = targetHeight * 0.2f;
+        Vector3 vRandPosInArea;
 
         for (int count = 0; count < Mathf.FloorToInt(targetHeight*0.4f); count++)
         {
-            randPos.x = Random.Range(targetPos.x - range, targetPos.x + range);
-            randPos.z = Random.Range(targetPos.z - range, targetPos.z + range);
-
+            vRandPosInArea = Random.insideUnitCircle * range;
+            randPos.x = targetPos.x + vRandPosInArea.x;
+            randPos.z = targetPos.z + vRandPosInArea.y;
+            
             dispersionBullet = DeerStarPool.Inst.Pop();
             dispersionBullet.Fire(from, randPos, targetHeight);
         }

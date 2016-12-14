@@ -3,9 +3,12 @@ using System.Collections;
 
 public class InputNormalMode : MonoBehaviour, iInput
 {
-    public Transform targetPos;
     public Transform player;
     public LineRenderer _line;
+    
+    public GameObjectPool deerstarCursorPool;
+    Transform curCursor;
+    Transform curCursorArea;
 
     Projectile projectile;
     float aimHeight;
@@ -23,6 +26,17 @@ public class InputNormalMode : MonoBehaviour, iInput
     public void OnDown()
     {
         aimHeight = 0;
+
+        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(_ray, out _hit))
+        {
+            GameObject obj = deerstarCursorPool.Pop();
+            curCursor = obj.transform;
+            curCursorArea = curCursor.GetChild(1);
+            curCursor.position = _hit.point;
+            curCursor.gameObject.SetActive(true);
+        }
     }
 
     public void OnPress()
@@ -31,9 +45,12 @@ public class InputNormalMode : MonoBehaviour, iInput
 
         if (Physics.Raycast(_ray, out _hit))
         {
-            targetPos.position = _hit.point;
+            curCursor.position = _hit.point;
             aimHeight += Time.deltaTime * 70;
             aimHeight = Mathf.Clamp(aimHeight, 0, 58);
+
+            curCursorArea.localScale = new Vector3(
+                aimHeight * 0.2f * 2, aimHeight * 0.2f * 2, 1);
 
             DrawLine();
         }
@@ -41,18 +58,18 @@ public class InputNormalMode : MonoBehaviour, iInput
 
     public void OnUp()
     {
-        FireManager.Inst.Fire(targetPos.position, aimHeight);
+        FireManager.Inst.Fire(curCursor.position, aimHeight);
     }
 
     Vector3[] linePoints = new Vector3[max];
 
     void DrawLine()
     {
-        CBezierSpline sline = new CBezierSpline(player.position.y, aimHeight, aimHeight * 1.2f, targetPos.position.y);
+        CBezierSpline sline = new CBezierSpline(player.position.y, aimHeight, aimHeight * 1.2f, curCursor.position.y);
 
         for (int idx = 0; idx < max; idx++)
         {
-            linePoints[idx] = Vector3.Lerp(player.position, targetPos.position, 0.03f * idx);
+            linePoints[idx] = Vector3.Lerp(player.position, curCursor.position, 0.03f * idx);
             linePoints[idx].y = sline.GetB_Spline(0.03f * idx);
         }
 
