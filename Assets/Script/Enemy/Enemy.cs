@@ -3,8 +3,8 @@ using System.Collections;
 
 public interface iEnemyControl
 {
-    void OnDamage();
-    void OnShield();
+    void OnDamage(int damage=1);
+    void OnDestroyedShield(int idx);
     void OnKnuckback(float pushpower);
     void OnMeteo();
     void OnGlobalAttack();
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
     protected float deadTime;
 
     [SerializeField]
-    protected int defaultHP;
+    protected int coreHP;
 
     [SerializeField]
     protected float attackRange;
@@ -45,6 +45,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     TextMesh _text;
 
+    bool[] arrIsDestroyShield;
+    bool allShieldIsDestroyed = false;
+
     protected virtual void Awake()
     {
         _text = transform.GetComponentInChildren<TextMesh>();
@@ -54,8 +57,19 @@ public class Enemy : MonoBehaviour, iEnemyControl
             target.iControl = this;
 
         OnShield[] arrShield = GetComponentsInChildren<OnShield>();
-        foreach (OnShield target in arrShield)
-            target.iControl = this;
+        arrIsDestroyShield = new bool[arrShield.Length];
+
+        for (int idx = 0; idx < arrIsDestroyShield.Length; idx++)
+            arrIsDestroyShield[idx] = false;
+
+        for (int idx = 0; idx < arrShield.Length; idx++)
+        {
+            arrShield[idx].iControl = this;
+            arrShield[idx].shieldIdx = idx;
+        }
+
+        if (arrShield.Length == 0)
+            allShieldIsDestroyed = true;
 
         CreateFSM();
     }
@@ -66,7 +80,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
     }
     
     protected virtual void Update()
-    {
+    {        
         if (curState == STATE_ID.Enemy_Move)
         {
             MoveToTarget();
@@ -91,15 +105,29 @@ public class Enemy : MonoBehaviour, iEnemyControl
     {
     }
 
-    public virtual void OnDamage()
+    public void OnDamage(int damage=1)
     {
-        myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - 1);
+        myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - damage);
         
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
     }
 
-    public void OnShield()
+    public void OnDestroyedShield(int targetShield)
     {
+        arrIsDestroyShield[targetShield] = true;
+
+        bool chkDestroy = true;
+
+        for (int idx = 0; idx < arrIsDestroyShield.Length; idx++)
+            chkDestroy &= arrIsDestroyShield[idx];
+
+        if (chkDestroy)
+            OnDestroyedAllShield();
+    }
+
+    protected virtual void OnDestroyedAllShield()
+    {
+        allShieldIsDestroyed = true;
     }
 
     public void OnKnuckback(float pushpower)
@@ -113,6 +141,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
             return;
 
         OnKnuckback(20);
+
+        if(allShieldIsDestroyed)
+            OnDamage(2);
         
         chkRepeat = true;
     }
@@ -141,7 +172,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
         myFSM.GetAnyState().AddTransition(new TransitionCondition(STATE_ID.Enemy_SearchTarget, 0, 0,
             new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET)));
 
-        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, defaultHP);
+        myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, coreHP);
         myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
         myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false);
 

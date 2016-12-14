@@ -137,13 +137,7 @@ public class E_Defender : Enemy
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
         }
     }
-
-    public override void OnDamage()
-    {
-        base.OnDamage();
-    }
     
-
     void OnTargetDestroyed()
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);
