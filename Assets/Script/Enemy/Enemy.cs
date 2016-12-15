@@ -10,6 +10,10 @@ public interface iEnemyControl
     void OnGlobalAttack();
 }
 
+public class EnemyList : GlobalList<iEnemyControl>
+{
+}
+
 public class Enemy : MonoBehaviour, iEnemyControl
 {
     public Animator _ani;
@@ -45,6 +49,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     TextMesh _text;
 
+    OnShield[] arrShield;
     bool[] arrIsDestroyShield;
     bool allShieldIsDestroyed = false;
 
@@ -56,7 +61,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
         foreach (OnDamage target in arrCore)
             target.iControl = this;
 
-        OnShield[] arrShield = GetComponentsInChildren<OnShield>();
+        arrShield = GetComponentsInChildren<OnShield>();
         arrIsDestroyShield = new bool[arrShield.Length];
 
         for (int idx = 0; idx < arrIsDestroyShield.Length; idx++)
@@ -72,6 +77,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
             allShieldIsDestroyed = true;
 
         CreateFSM();
+
+        EnemyList.Add(this);
     }
 
     protected virtual void Start()
@@ -79,6 +86,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
     }
     
+
+
     protected virtual void Update()
     {        
         if (curState == STATE_ID.Enemy_Move)
@@ -140,7 +149,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
         if (chkRepeat)
             return;
 
-        OnKnuckback(20);
+        OnKnuckback(25);
 
         if(allShieldIsDestroyed)
             OnDamage(2);
@@ -150,14 +159,31 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnGlobalAttack()
     {
-        if (chkRepeat)
-            return;
+        Projectile bullet = GlobalAttackPool.Inst.Pop();
+        bullet.Fire(transform.position);
+        StartCoroutine(DelayGlobalAttack());
+    }
 
-        chkRepeat = true;
+    IEnumerator DelayGlobalAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        if(allShieldIsDestroyed)
+            OnDamage(5);
+        else
+        {
+            OnKnuckback(15);
+            for(int idx=0; idx<arrShield.Length; idx++)
+            {
+                if (!arrIsDestroyShield[idx])
+                    arrShield[idx].Damage(1);
+            }
+        }
     }
     
     protected virtual void DestroySelf()
     {
+        EnemyList.Remove(this);
         Destroy(gameObject);
     }
 
@@ -175,8 +201,6 @@ public class Enemy : MonoBehaviour, iEnemyControl
         myFSM.AddParamInt(TRANS_PARAM_ID.INT_HP, coreHP);
         myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_HAVE_TARGET, false);
         myFSM.AddParamBool(TRANS_PARAM_ID.BOOL_IS_ARRIVE_TARGET, false);
-
-
     }
 
     protected virtual void OnChangeState(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)

@@ -7,26 +7,33 @@ public class OnShield : OnEnemyCollider
 
     [SerializeField]
     int shieldHP;
-
-    protected override void OnTriggerEnter(Collider col)
+    
+    public void Damage(int power)
     {
-        if (col.CompareTag("PlayerProjectile"))
-        {
-            iControl.OnKnuckback(10);
-            shieldHP -= 1;
-        }
+        ReduceShieldHP(power);
+    }
 
-        if(col.CompareTag("Meteo"))
-        {
-            shieldHP -= 3;
-            iControl.OnMeteo();
-        }
+    private void ReduceShieldHP(int reduceValue)
+    {
+        shieldHP -= reduceValue;
 
-        if(shieldHP <= 0)
+        if (shieldHP <= 0)
         {
             iControl.OnDestroyedShield(shieldIdx);
             gameObject.SetActive(false);
             Destroy(gameObject);
         }
+    }
+
+    protected override void OnDeerStar()
+    {
+        iControl.OnKnuckback(10);
+        ReduceShieldHP(1);
+    }
+
+    protected override void OnMeteo()
+    {
+        iControl.OnMeteo();
+        ReduceShieldHP(3);
     }
 }

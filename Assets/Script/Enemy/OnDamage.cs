@@ -3,17 +3,14 @@ using System.Collections;
 
 public class OnDamage : OnEnemyCollider
 {
-    protected override void OnTriggerEnter(Collider col)
+    protected override void OnDeerStar()
     {
-        if(col.CompareTag("PlayerProjectile"))
-            iControl.OnDamage();
+        iControl.OnDamage();
+    }
 
-        if (col.CompareTag("TowerAttack"))
-        {
-            iControl.OnDamage();
-            iControl.OnKnuckback(8);
-        }
-
-        base.OnTriggerEnter(col);
+    protected override void OnTowerAttack()
+    {
+        iControl.OnDamage();
+        iControl.OnKnuckback(8);
     }
 }

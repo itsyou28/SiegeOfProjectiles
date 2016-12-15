@@ -70,5 +70,26 @@ public class PlayerInput : MonoBehaviour
         {
             curInputTarget = iObstacleMode;
         }
+        if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            StartGlobalAttack();
+        }
+    }
+
+    void StartGlobalAttack()
+    {
+        StartCoroutine(GlobalAttack());
+    }
+
+    IEnumerator GlobalAttack()
+    {
+        iEnemyControl[] tList = EnemyList.list.ToArray();    
+
+        foreach (iEnemyControl iEC in tList)
+        {
+            iEC.OnGlobalAttack();
+
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }
