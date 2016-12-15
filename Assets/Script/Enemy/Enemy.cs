@@ -8,6 +8,8 @@ public interface iEnemyControl
     void OnKnuckback(float pushpower);
     void OnMeteo();
     void OnGlobalAttack();
+    void OnEnterObstacle();
+    void OnExitObstacle();
 }
 
 public class EnemyList : GlobalList<iEnemyControl>
@@ -34,7 +36,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
     protected float attackRange;
 
     [SerializeField]
-    protected float moveSpeed;
+    float moveSpeed;
 
     [SerializeField]
     protected float weight = 1; //1~5 높을수록 뒤로 덜 밀린다. 
@@ -43,6 +45,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     protected STATE_ID curState = STATE_ID.Enemy_Move;
 
+    protected float tMoveSpeed;
 
     float knuckback = 0;
     bool chkRepeat = false;
@@ -57,8 +60,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
     {
         _text = transform.GetComponentInChildren<TextMesh>();
 
-        OnDamage[] arrCore = GetComponentsInChildren<OnDamage>();
-        foreach (OnDamage target in arrCore)
+        OnCore[] arrCore = GetComponentsInChildren<OnCore>();
+        foreach (OnCore target in arrCore)
             target.iControl = this;
 
         arrShield = GetComponentsInChildren<OnShield>();
@@ -79,6 +82,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
         CreateFSM();
 
         EnemyList.Add(this);
+
+        tMoveSpeed = moveSpeed;
     }
 
     protected virtual void Start()
@@ -180,7 +185,17 @@ public class Enemy : MonoBehaviour, iEnemyControl
             }
         }
     }
-    
+
+    public void OnEnterObstacle()
+    {
+        tMoveSpeed = moveSpeed * 0.1f;
+    }
+
+    public void OnExitObstacle()
+    {
+        tMoveSpeed = moveSpeed;
+    }
+
     protected virtual void DestroySelf()
     {
         EnemyList.Remove(this);

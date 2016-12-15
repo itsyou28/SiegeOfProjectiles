@@ -87,7 +87,8 @@ public class PlayerInput : MonoBehaviour
 
         foreach (iEnemyControl iEC in tList)
         {
-            iEC.OnGlobalAttack();
+            if(iEC != null)
+                iEC.OnGlobalAttack();
 
             yield return new WaitForSeconds(0.1f);
         }

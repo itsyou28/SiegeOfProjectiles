@@ -36,7 +36,7 @@ public class E_Assault : Enemy
 
     protected override void MoveToTarget()
     {
-        transform.Translate(vDir * moveSpeed * Time.deltaTime);
+        transform.Translate(vDir * tMoveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPos) <= attackRange)
         {
