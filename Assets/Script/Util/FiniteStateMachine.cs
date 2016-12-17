@@ -9,21 +9,13 @@ public delegate void deleLayerPauseResume(FSM_LAYER layerNum);
 public enum FSM_LAYER
 {
     //레이어는 일반 배열을 사용하므로 Enum 변수는 반드시 0부터 순열로 정의되어야 한다. 
-    USERSTORY = 0,
-    MAIN,
-    COMPARE_SELECT,
-    COMPARE_SELECT_LIST,
-    RECORDING
+    USERSTORY = 0
 }
 
 public enum FSM_ID
 {
     NONE = 0,
     USERSTORY,
-    MAIN,
-    RECORDING,
-    COMPARE_SELECT,
-    COMPARE_SELECT_LIST
 }
 
 public enum TRANS_PARAM_ID
@@ -40,7 +32,11 @@ public enum TRANS_PARAM_ID
     TRIGGER_TARGET_DESTROYED,
     BOOL_HAVE_TARGET,
     BOOL_IS_ARRIVE_TARGET,
-    INT_DEFENDER_BEHAVIOR_MODE
+    INT_DEFENDER_BEHAVIOR_MODE,
+    TRIGGER_REINFORCE,
+    TRIGGER_CLEAR,
+    TRIGGER_ALL_CLEAR,
+    TRIGGER_GAMEOVER
 }
 
 public enum STATE_ID
@@ -56,7 +52,16 @@ public enum STATE_ID
     Enemy_Idle,
     Enemy_Dead,
     Enemy_Protection,
-    Enemy_DestroySelf
+    Enemy_DestroySelf,
+    US_Start,
+    US_MainMenu,
+    US_ExitConfirm,
+    US_Exit,
+    US_Play,
+    US_WaveClear,
+    US_Reinforce,
+    US_Ending,
+    US_GameOver,
 }
 
 
@@ -68,7 +73,8 @@ public enum TRANS_ID
     RESET,
     ESCAPE_TO_MAIN,
     BACK_TO_MAIN,
-    GAMEOVER
+    GAMEOVER,
+    ESCAPE
 }
 
 public enum TransitionType
@@ -82,7 +88,7 @@ public enum TransitionComparisonOperator
 
 public static class FSM_Manager
 {
-    const int iMaxLayer = 5;
+    const int iMaxLayer = 3;
 
     static Dictionary<FSM_ID, FSM>[] dicFSM_EachLayer = new Dictionary<FSM_ID, FSM>[iMaxLayer];
 
