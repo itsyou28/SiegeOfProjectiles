@@ -58,7 +58,10 @@ public class InputNormalMode : MonoBehaviour, iInput
 
     public void OnUp()
     {
-        FireManager.Inst.Fire(curCursor.position, aimHeight);
+        if(curCursor != null)
+            FireManager.Inst.Fire(curCursor.position, aimHeight);
+
+        curCursor = null;
     }
 
     Vector3[] linePoints = new Vector3[max];

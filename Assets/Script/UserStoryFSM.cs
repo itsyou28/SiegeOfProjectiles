@@ -19,7 +19,7 @@ public class UserStoryFSM : MonoBehaviour
         FSM userstory = new FSM(FSM_ID.USERSTORY);
 
         userstory.GetAnyState().AddTransition(
-            new TransitionCondition(STATE_ID.US_MainMenu, 0, 0,
+            new TransitionCondition(STATE_ID.US_Start, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET))
             );
 
@@ -42,7 +42,7 @@ public class UserStoryFSM : MonoBehaviour
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_ESCAPE)),
             new TransitionCondition(STATE_ID.US_Reinforce, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_REINFORCE)),
-            new TransitionCondition(STATE_ID.US_WaveClear, 0, 0,
+            new TransitionCondition(STATE_ID.US_StageClear, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_CLEAR)),
             new TransitionCondition(STATE_ID.US_GameOver, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_GAMEOVER)),
@@ -50,7 +50,7 @@ public class UserStoryFSM : MonoBehaviour
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_ALL_CLEAR))
             );
 
-        userstory.MakeStateFactory(STATE_ID.US_WaveClear,
+        userstory.MakeStateFactory(STATE_ID.US_StageClear,
             new TransitionCondition(STATE_ID.US_Reinforce, TRANS_ID.ESCAPE, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_ESCAPE)),
             new TransitionCondition(STATE_ID.US_Reinforce, 0, 0,

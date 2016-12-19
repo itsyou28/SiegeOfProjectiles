@@ -58,7 +58,7 @@ public enum STATE_ID
     US_ExitConfirm,
     US_Exit,
     US_Play,
-    US_WaveClear,
+    US_StageClear,
     US_Reinforce,
     US_Ending,
     US_GameOver,

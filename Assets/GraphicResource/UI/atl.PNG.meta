@@ -1,24 +1,24 @@
 fileFormatVersion: 2
 guid: cd5702387fd814d499b65e8fecf3f006
-timeCreated: 1481952999
+timeCreated: 1482119739
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: atl_0
-    21300002: atl_3
-    21300004: atl_4
-    21300006: atl_5
-    21300008: atl_6
-    21300010: atl_9
-    21300012: atl_10
+    21300000: StarPoint
+    21300002: Skill_Obstacle_Icon
+    21300004: Skill_Global_Icon
+    21300006: GetStar
+    21300008: DeerLevelUp
+    21300010: Skill_Meteo_Icon
+    21300012: SkillBtn
     21300014: Btn_Back_type1
-    21300016: atl_12
-    21300018: atl_13
-    21300020: atl_14
+    21300016: Ahivement
+    21300018: Ranking
+    21300020: Repair
     21300022: atl_16
-    21300024: atl_18
-    21300026: atl_21
-    21300028: atl_1
+    21300024: NoAD
+    21300026: Exit
+    21300028: SkillUp
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -68,7 +68,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: atl_0
+      name: StarPoint
       rect:
         serializedVersion: 2
         x: 0
@@ -81,7 +81,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_3
+      name: Skill_Obstacle_Icon
       rect:
         serializedVersion: 2
         x: 379
@@ -94,7 +94,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_4
+      name: Skill_Global_Icon
       rect:
         serializedVersion: 2
         x: 520
@@ -107,7 +107,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_5
+      name: GetStar
       rect:
         serializedVersion: 2
         x: 652
@@ -120,7 +120,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_6
+      name: DeerLevelUp
       rect:
         serializedVersion: 2
         x: 844
@@ -133,7 +133,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_9
+      name: Skill_Meteo_Icon
       rect:
         serializedVersion: 2
         x: 241
@@ -146,7 +146,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_10
+      name: SkillBtn
       rect:
         serializedVersion: 2
         x: 25
@@ -172,7 +172,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_12
+      name: Ahivement
       rect:
         serializedVersion: 2
         x: 420
@@ -185,7 +185,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_13
+      name: Ranking
       rect:
         serializedVersion: 2
         x: 552
@@ -198,7 +198,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_14
+      name: Repair
       rect:
         serializedVersion: 2
         x: 844
@@ -224,7 +224,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_18
+      name: NoAD
       rect:
         serializedVersion: 2
         x: 217
@@ -237,7 +237,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_21
+      name: Exit
       rect:
         serializedVersion: 2
         x: 217
@@ -250,7 +250,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: atl_1
+      name: SkillUp
       rect:
         serializedVersion: 2
         x: 692
