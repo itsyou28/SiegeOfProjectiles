@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public enum BK_EVENT
 {
     DEFAULT_EVENT = 0,
-    OnChangeInputMode
+    OnChangeInputMode,
+    SKILL_ACTIVE_METEO,
+    SKILL_ACTIVE_OBSTACLE,
+    SKILL_ACTIVE_GLOBALATTACK
 }
 
 public delegate void EventCallBackFunction(params object[] args);

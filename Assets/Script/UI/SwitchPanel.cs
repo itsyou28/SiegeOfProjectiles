@@ -11,7 +11,7 @@ public class SwitchPanel : MonoBehaviour
     public GameObject GameOver;
     public GameObject ExitConfirm;
 
-    public void Awake()
+    void Start()
     {
         State tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_MainMenu);
         tstate.EventStart += OnStartMainMenu;
@@ -35,8 +35,7 @@ public class SwitchPanel : MonoBehaviour
 
         tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_ExitConfirm);
         tstate.EventStart += OnStartExitConfirm;
-        tstate.EventEnd += OnEndExitConfirm;
-        
+        tstate.EventEnd += OnEndExitConfirm;        
     }
 
     private void OnEndExitConfirm(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)

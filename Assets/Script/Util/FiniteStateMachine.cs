@@ -56,7 +56,6 @@ public enum STATE_ID
     US_Start,
     US_MainMenu,
     US_ExitConfirm,
-    US_Exit,
     US_Play,
     US_StageClear,
     US_Reinforce,

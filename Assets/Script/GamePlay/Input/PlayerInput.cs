@@ -27,7 +27,28 @@ public class PlayerInput : MonoBehaviour
         iObstacleMode = obstacleMode.GetComponent<iInput>();
 
         curInputTarget = iNormalMode;
+
+        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_METEO, OnActiveMeteo);
+        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_OBSTACLE, OnActiveObstacle);
+        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_GLOBALATTACK, OnActiveGlobal);
     }
+
+    void OnActiveMeteo(params object[] args)
+    {
+        curInputTarget = iMeteoMode;
+    }
+
+    void OnActiveObstacle(params object[] args)
+    {
+        curInputTarget = iObstacleMode;
+    }
+
+    void OnActiveGlobal(params object[] args)
+    {
+        StartGlobalAttack();
+    }
+
+
 
     void OnChangeInputMode(params object[] args)
     {
@@ -39,7 +60,6 @@ public class PlayerInput : MonoBehaviour
                 curInputTarget = iNormalMode;
                 break;
             case 1:
-                curInputTarget = iMeteoMode;
                 break;
             case 2:
                 curInputTarget = iObstacleMode;
