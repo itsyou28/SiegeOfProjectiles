@@ -4,33 +4,37 @@ using System.Collections;
 public class InputObstacleMode : MonoBehaviour, iInput
 {
     public GameObjectPool obstaclePool;
-    Ray _ray;
-    RaycastHit _hit;
+    public bool isPress { get; set; }
 
-    public void OnDown()
-    {
-    }
+    Vector3 targetPos;
 
     float accumeTime = 0;
-    public void OnPress()
+
+    public void OnDown(Vector3 hitPos)
+    {
+        targetPos = hitPos;
+    }
+
+    public void OnDrag(Vector3 hitPos)
+    {
+        targetPos = hitPos;
+    }
+
+    public void OnPressUpdate()
     {
         accumeTime += Time.deltaTime;
 
         if (accumeTime > 0.2f)
         {
-            _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            GameObject obj = obstaclePool.Pop();
+            obj.transform.position = targetPos;
+            obj.gameObject.SetActive(true);
 
-            if (Physics.Raycast(_ray, out _hit))
-            {
-                GameObject obj = obstaclePool.Pop();
-                obj.transform.position = _hit.point;
-                obj.gameObject.SetActive(true);
-            }
             accumeTime -= 0.2f;
         }
     }
 
-    public void OnUp()
+    public void OnUp(Vector3 hitPos)
     {
     }
 }

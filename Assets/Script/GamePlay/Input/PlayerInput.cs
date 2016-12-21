@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public interface iInput
 {
-    void OnDown();
-    void OnPress();
-    void OnUp();
+    void OnDown(Vector3 hitPos);
+    void OnDrag(Vector3 hitPos);
+    void OnPressUpdate();
+    void OnUp(Vector3 hitPos);
+
+    bool isPress { get; set; }
 }
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     iInput curInputTarget;
 
@@ -48,36 +52,28 @@ public class PlayerInput : MonoBehaviour
         StartGlobalAttack();
     }
 
-
-
-    void OnChangeInputMode(params object[] args)
+    public void OnPointerDown(PointerEventData _data)
     {
-        int mode = (int)args[0];
-
-        switch(mode)
-        {
-            case 0:
-                curInputTarget = iNormalMode;
-                break;
-            case 1:
-                break;
-            case 2:
-                curInputTarget = iObstacleMode;
-                break;
-        }
+        curInputTarget.isPress = true;
+        curInputTarget.OnDown(_data.pointerCurrentRaycast.worldPosition);
     }
-    
+
+    public void OnPointerUp(PointerEventData _data)
+    {
+        curInputTarget.OnUp(_data.pointerCurrentRaycast.worldPosition);
+        curInputTarget.isPress = false;
+    }
+
+    public void OnDrag(PointerEventData _data)
+    {
+        curInputTarget.OnDrag(_data.pointerCurrentRaycast.worldPosition);
+    }
+        
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            curInputTarget.OnDown();
-
-        if (Input.GetMouseButton(0))
-            curInputTarget.OnPress();
-
-        if (Input.GetMouseButtonUp(0))
-            curInputTarget.OnUp();
-
+        if (curInputTarget.isPress)
+            curInputTarget.OnPressUpdate();
+        
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             curInputTarget = iNormalMode;

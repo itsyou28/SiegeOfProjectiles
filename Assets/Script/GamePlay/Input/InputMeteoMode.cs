@@ -3,25 +3,24 @@ using System.Collections;
 
 public class InputMeteoMode : MonoBehaviour, iInput
 {
-    Ray _ray;
-    RaycastHit _hit;
+    public bool isPress { get; set; }
 
-    public void OnDown()
+    public void OnDown(Vector3 hitPos)
     {
-        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(_ray, out _hit))
-        {
-            Projectile bullet = MeteoPool.Inst.Pop();
-            bullet.Fire(_hit.point);
-        }
+        Projectile bullet = MeteoPool.Inst.Pop();
+        bullet.Fire(hitPos);
     }
 
-    public void OnPress()
+    public void OnDrag(Vector3 hitPos)
     {
     }
 
-    public void OnUp()
+    public void OnPressUpdate()
+    {
+    }
+
+    public void OnUp(Vector3 hitPos)
     {
     }
 }

@@ -5,16 +5,16 @@ public class InputNormalMode : MonoBehaviour, iInput
 {
     public Transform player;
     public LineRenderer _line;
-    
+
     public GameObjectPool deerstarCursorPool;
+
+    public bool isPress { get; set; }
+
     Transform curCursor;
     Transform curCursorArea;
 
     Projectile projectile;
     float aimHeight;
-
-    Ray _ray;
-    RaycastHit _hit;
 
     const int max = 10;
 
@@ -23,42 +23,36 @@ public class InputNormalMode : MonoBehaviour, iInput
         _line.SetVertexCount(max);
     }
 
-    public void OnDown()
+    public void OnDown(Vector3 hitPos)
     {
         aimHeight = 0;
 
-        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(_ray, out _hit))
-        {
-            GameObject obj = deerstarCursorPool.Pop();
-            curCursor = obj.transform;
-            curCursorArea = curCursor.GetChild(1);
-            curCursor.position = _hit.point;
-            curCursor.gameObject.SetActive(true);
-        }
+        GameObject obj = deerstarCursorPool.Pop();
+        curCursor = obj.transform;
+        curCursorArea = curCursor.GetChild(1);
+        curCursor.position = hitPos;
+        curCursor.gameObject.SetActive(true);
     }
 
-    public void OnPress()
+    public void OnDrag(Vector3 hitPos)
     {
-        _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        curCursor.position = hitPos;
 
-        if (Physics.Raycast(_ray, out _hit))
-        {
-            curCursor.position = _hit.point;
-            aimHeight += Time.deltaTime * 70;
-            aimHeight = Mathf.Clamp(aimHeight, 0, 58);
-
-            curCursorArea.localScale = new Vector3(
-                aimHeight * 0.2f * 2, aimHeight * 0.2f * 2, 1);
-
-            DrawLine();
-        }
+        DrawLine();
     }
 
-    public void OnUp()
+    public void OnPressUpdate()
     {
-        if(curCursor != null)
+        aimHeight += Time.deltaTime * 70;
+        aimHeight = Mathf.Clamp(aimHeight, 0, 58);
+
+        curCursorArea.localScale = new Vector3(
+            aimHeight * 0.2f * 2, aimHeight * 0.2f * 2, 1);
+    }
+
+    public void OnUp(Vector3 hitPos)
+    {
+        if (curCursor != null)
             FireManager.Inst.Fire(curCursor.position, aimHeight);
 
         curCursor = null;
