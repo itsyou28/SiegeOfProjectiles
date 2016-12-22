@@ -90,6 +90,17 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             StartGlobalAttack();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_ESCAPE);
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_CLEAR);
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+            FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_ALL_CLEAR);
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+            FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_GAMEOVER);
     }
 
     void StartGlobalAttack()

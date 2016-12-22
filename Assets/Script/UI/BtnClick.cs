@@ -51,4 +51,8 @@ public class BtnClick : MonoBehaviour
         FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_BACKBTN);
     }
 
+    public void OnClickNext()
+    {
+        FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_NEXT);
+    }
 }

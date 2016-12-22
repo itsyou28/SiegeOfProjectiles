@@ -11,7 +11,11 @@ public class UserStoryFSM : MonoBehaviour
     void Start()
     {
         FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_RESET);
-        FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_NEXT);
+    }
+
+    void Update()
+    {
+        FSM_Manager.Update();
     }
 
     private void CreateUserStoryFSM()
@@ -24,18 +28,20 @@ public class UserStoryFSM : MonoBehaviour
             );
 
         userstory.MakeStateFactory(STATE_ID.US_Start,
-            new TransitionCondition(STATE_ID.US_MainMenu, 0, 0,
-                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT))
+            new TransitionCondition(STATE_ID.US_MainMenu, 0, 1)
             );
 
         userstory.MakeStateFactory(STATE_ID.US_MainMenu,
-            new TransitionCondition(STATE_ID.US_Play, 0, 0,
+            new TransitionCondition(STATE_ID.US_StageGuide, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)),
             new TransitionCondition(STATE_ID.US_ExitConfirm, TRANS_ID.ESCAPE, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_ESCAPE)),
             new TransitionCondition(STATE_ID.US_ExitConfirm, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_CLOSE))
             );
+
+        userstory.MakeStateFactory(STATE_ID.US_StageGuide,
+            new TransitionCondition(STATE_ID.US_Play, 0, 2));
 
         userstory.MakeStateFactory(STATE_ID.US_Play,
             new TransitionCondition(STATE_ID.US_Reinforce, TRANS_ID.ESCAPE, 0,
@@ -51,9 +57,9 @@ public class UserStoryFSM : MonoBehaviour
             );
 
         userstory.MakeStateFactory(STATE_ID.US_StageClear,
-            new TransitionCondition(STATE_ID.US_Reinforce, TRANS_ID.ESCAPE, 0,
+            new TransitionCondition(STATE_ID.US_StageGuide, TRANS_ID.ESCAPE, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_ESCAPE)),
-            new TransitionCondition(STATE_ID.US_Reinforce, 0, 0,
+            new TransitionCondition(STATE_ID.US_StageGuide, 0, 0,
                 new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT))
             );
 
@@ -91,28 +97,13 @@ public class UserStoryFSM : MonoBehaviour
 
         userstory.MakeStateFactory(STATE_ID.Exit);
 
-        userstory.GetState(STATE_ID.Exit).EventStart += OnStartExit;
-
         FSM_Manager.AddFSM(FSM_LAYER.USERSTORY, userstory, FSM_ID.USERSTORY);
+
+        userstory.EventStateChange += OnChangeUserStory;
     }
 
-    private void OnStartExit(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    private void OnChangeUserStory(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
-        Quit();
-    }
-
-    void Quit()
-    {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit(); 
-#endif
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_ESCAPE);
+        Debug.Log(stateID);
     }
 }

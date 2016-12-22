@@ -61,6 +61,7 @@ public enum STATE_ID
     US_Reinforce,
     US_Ending,
     US_GameOver,
+    US_StageGuide
 }
 
 

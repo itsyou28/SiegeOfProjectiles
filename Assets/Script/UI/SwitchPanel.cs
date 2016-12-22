@@ -4,18 +4,25 @@ using System.Collections;
 public class SwitchPanel : MonoBehaviour
 {
     public GameObject MainMenu;
+    public Animator aniMainMenu;
+
     public GameObject ReinforceBG;
     public GameObject Reinforce;
     public GameObject Play;
     public GameObject StageClear;
     public GameObject GameOver;
     public GameObject ExitConfirm;
+    public GameObject Ending;
+    public GameObject StageGuide;
 
     void Start()
-    {
+    {        
         State tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_MainMenu);
         tstate.EventStart += OnStartMainMenu;
         tstate.EventEnd += OnEndMainMenu;
+
+        tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_Start);
+        tstate.EventStart += OnStartStart;
 
         tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_Reinforce);
         tstate.EventStart += OnStartReinforce;
@@ -35,7 +42,60 @@ public class SwitchPanel : MonoBehaviour
 
         tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_ExitConfirm);
         tstate.EventStart += OnStartExitConfirm;
-        tstate.EventEnd += OnEndExitConfirm;        
+        tstate.EventEnd += OnEndExitConfirm;
+
+        tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_Ending);
+        tstate.EventStart += OnStartEnding;
+        tstate.EventEnd += OnEndEnding;
+
+        tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_StageGuide);
+        tstate.EventStart += OnStartStageGuide;
+        tstate.EventEnd += OnEndStageGuide;
+
+        FSM_Manager.RegisterEventChangeLayerState(FSM_LAYER.USERSTORY, OnChangeUserStory);
+    }
+
+    private void OnChangeUserStory(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        switch(stateID)
+        {
+            //case STATE_ID.US_StageGuide:
+            case STATE_ID.US_Play:
+            case STATE_ID.US_Reinforce:
+            case STATE_ID.US_StageClear:
+                Play.SetActive(true);
+                break;
+            case STATE_ID.US_StageGuide:
+                break;
+            default:
+                Play.SetActive(false);
+                break;
+        }
+    }
+
+    private void OnEndStageGuide(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        StageGuide.SetActive(false);
+    }
+
+    private void OnStartStageGuide(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        StageGuide.SetActive(true);
+    }
+
+    private void OnStartStart(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        MainMenu.SetActive(true);
+    }
+
+    private void OnEndEnding(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        Ending.SetActive(false);
+    }
+
+    private void OnStartEnding(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        Ending.SetActive(true);
     }
 
     private void OnEndExitConfirm(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
@@ -55,6 +115,7 @@ public class SwitchPanel : MonoBehaviour
 
     private void OnStartGameOver(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
+        Play.SetActive(false);
         GameOver.SetActive(true);
     }
 
@@ -70,35 +131,31 @@ public class SwitchPanel : MonoBehaviour
 
     private void OnEndPlay(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
-        Play.SetActive(false);
     }
 
     private void OnStarPlay(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
-        Play.SetActive(true);
     }
 
     private void OnEndReinforce(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         Reinforce.SetActive(false);
         ReinforceBG.SetActive(false);
-        Play.SetActive(false);
     }
 
     private void OnStartReinforce(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
         Reinforce.SetActive(true);
         ReinforceBG.SetActive(true);
-        Play.SetActive(true);
     }
 
     private void OnEndMainMenu(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
-        MainMenu.SetActive(false);
+        aniMainMenu.Play("MainMenuEaseOut");
     }
 
     private void OnStartMainMenu(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
     {
-        MainMenu.SetActive(true);
+        aniMainMenu.Play("MainMenuEaseIn");
     }
 }
