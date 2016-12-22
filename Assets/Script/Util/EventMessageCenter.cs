@@ -7,7 +7,9 @@ public enum BK_EVENT
     DEFAULT_EVENT = 0,
     OnChangeInputMode,
     SKILL_ACTIVE_METEO,
+    SKILL_DEACTIVE_METEO,
     SKILL_ACTIVE_OBSTACLE,
+    SKILL_DEACTIVE_OBSTACLE,
     SKILL_ACTIVE_GLOBALATTACK
 }
 
@@ -17,15 +19,6 @@ public delegate void EventCallBackFunction(params object[] args);
 public class BK_EMC
 {
     private static BK_EMC instance;
-
-    Dictionary<BK_EVENT, EventCallBackFunction>
-        callBackFunctionList = new Dictionary<BK_EVENT, EventCallBackFunction>();
-
-    Dictionary<BK_EVENT, EventCallBackFunction>
-        callBackFunctionListBefore = new Dictionary<BK_EVENT, EventCallBackFunction>();
-
-    Dictionary<BK_EVENT, EventCallBackFunction>
-        callBackFunctionListAfter = new Dictionary<BK_EVENT, EventCallBackFunction>();
 
     public static BK_EMC Inst
     {
@@ -38,6 +31,15 @@ public class BK_EMC
             return instance;
         }
     }
+
+    Dictionary<BK_EVENT, EventCallBackFunction>
+        callBackFunctionList = new Dictionary<BK_EVENT, EventCallBackFunction>();
+
+    Dictionary<BK_EVENT, EventCallBackFunction>
+        callBackFunctionListBefore = new Dictionary<BK_EVENT, EventCallBackFunction>();
+
+    Dictionary<BK_EVENT, EventCallBackFunction>
+        callBackFunctionListAfter = new Dictionary<BK_EVENT, EventCallBackFunction>();
     
     /// <param name="atPoint">-1, 0, 1</param>
     public void AddEventCallBackFunction(BK_EVENT key, EventCallBackFunction cbFunction, int atPoint = 0)
