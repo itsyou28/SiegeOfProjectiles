@@ -1,0 +1,269 @@
+fileFormatVersion: 2
+guid: 6e4fbccb7818d0d489e6e8f536ac56e8
+timeCreated: 1482374593
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: meteor_main_0
+    21300002: meteor_main_1
+    21300004: meteor_main_2
+    21300006: meteor_main_3
+    21300008: meteor_main_4
+    21300010: meteor_main_5
+    21300012: meteor_main_6
+    21300014: meteor_main_7
+    21300016: meteor_main_8
+    21300018: meteor_main_9
+    21300020: meteor_main_10
+    21300022: meteor_main_11
+    21300024: meteor_main_12
+    21300026: meteor_main_13
+    21300028: meteor_main_14
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: meteor_main_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1738
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_1
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1738
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_2
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 1738
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1428
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_4
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1428
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_5
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 1428
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1118
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_7
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 1118
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_8
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 1118
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 808
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_10
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 808
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_11
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 808
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 498
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_13
+      rect:
+        serializedVersion: 2
+        x: 550
+        y: 498
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: meteor_main_14
+      rect:
+        serializedVersion: 2
+        x: 1100
+        y: 498
+        width: 550
+        height: 310
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
