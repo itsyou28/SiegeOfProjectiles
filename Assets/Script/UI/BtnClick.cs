@@ -3,6 +3,14 @@ using System.Collections;
 
 public class BtnClick : MonoBehaviour
 {
+    iSkill iSkillMng;
+
+    void Awake()
+    {
+        iSkillMng = SkillMng.Inst;
+        if (iSkillMng == null)
+            iSkillMng = new EmptySkillMng();
+    }
 
     public void OnClickStart()
     {
@@ -16,17 +24,17 @@ public class BtnClick : MonoBehaviour
 
     public void OnClickMeteo()
     {
-        BK_EMC.Inst.NoticeEventOccurrence(BK_EVENT.SKILL_ACTIVE_METEO);
+        iSkillMng.OnClickMeteo();
     }
 
     public void OnClickObstacle()
     {
-        BK_EMC.Inst.NoticeEventOccurrence(BK_EVENT.SKILL_ACTIVE_OBSTACLE);
+        iSkillMng.OnClickObstacle();
     }
 
     public void OnClickGlobal()
     {
-        BK_EMC.Inst.NoticeEventOccurrence(BK_EVENT.SKILL_ACTIVE_GLOBALATTACK);
+        iSkillMng.OnClickGlobalAttack();
     }
 
     public void OnClickAchivement()

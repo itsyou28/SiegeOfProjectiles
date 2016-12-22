@@ -33,8 +33,9 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         curInputTarget = iNormalMode;
 
         BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_METEO, OnActiveMeteo);
+        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_DEACTIVE_METEO, OnDeactiveMeteo);
         BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_OBSTACLE, OnActiveObstacle);
-        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_ACTIVE_GLOBALATTACK, OnActiveGlobal);
+        BK_EMC.Inst.AddEventCallBackFunction(BK_EVENT.SKILL_DEACTIVE_OBSTACLE, OnDeactiveObstacle);
     }
 
     void OnActiveMeteo(params object[] args)
@@ -42,14 +43,19 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         curInputTarget = iMeteoMode;
     }
 
+    void OnDeactiveMeteo(params object[] args)
+    {
+        curInputTarget = iNormalMode;
+    }
+
     void OnActiveObstacle(params object[] args)
     {
         curInputTarget = iObstacleMode;
     }
 
-    void OnActiveGlobal(params object[] args)
+    void OnDeactiveObstacle(params object[] args)
     {
-        StartGlobalAttack();
+        curInputTarget = iNormalMode;
     }
 
     public void OnPointerDown(PointerEventData _data)
@@ -88,7 +94,7 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            StartGlobalAttack();
+            BK_EMC.Inst.NoticeEventOccurrence(BK_EVENT.SKILL_ACTIVE_GLOBALATTACK);
         }
         if (Input.GetKeyDown(KeyCode.Escape))
             FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_ESCAPE);
@@ -101,23 +107,5 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         if (Input.GetKeyDown(KeyCode.Alpha7))
             FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_GAMEOVER);
-    }
-
-    void StartGlobalAttack()
-    {
-        StartCoroutine(GlobalAttack());
-    }
-
-    IEnumerator GlobalAttack()
-    {
-        iEnemyControl[] tList = EnemyList.list.ToArray();    
-
-        foreach (iEnemyControl iEC in tList)
-        {
-            if(iEC != null)
-                iEC.OnGlobalAttack();
-
-            yield return new WaitForSeconds(0.1f);
-        }
     }
 }
