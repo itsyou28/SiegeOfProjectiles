@@ -118,7 +118,7 @@ public class E_Defender : Enemy
         vDir = targetTransform.position - transform.position;
         vDir = vDir.normalized;
 
-        transform.Translate(vDir * moveSpeed * Time.deltaTime);
+        transform.Translate(vDir * tMoveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetTransform.position) <= 0.5f)
         {
@@ -129,7 +129,7 @@ public class E_Defender : Enemy
 
     private void MoveToAttack()
     {
-        transform.Translate(vDir * moveSpeed * Time.deltaTime);
+        transform.Translate(vDir * tMoveSpeed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, targetPos) <= attackRange)
         {
@@ -137,16 +137,7 @@ public class E_Defender : Enemy
             myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
         }
     }
-
-    public override void OnDamage()
-    {
-        base.OnDamage();
-    }
-
-    public override void OnShield()
-    {
-    }
-
+    
     void OnTargetDestroyed()
     {
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_TARGET_DESTROYED);

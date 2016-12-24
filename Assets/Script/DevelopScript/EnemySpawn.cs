@@ -9,7 +9,7 @@ public class EnemySpawn : MonoBehaviour
 
     float accumeTime = 0;
 
-    Vector3 spawnPos = new Vector3(90, 0.11f, 0);
+    Vector3 spawnPos = new Vector3(94, 0.11f, 0);
     float nextSpawnTime = 0.5f;
 
     GameObject origin;
