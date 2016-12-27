@@ -6,6 +6,8 @@ public class GlobalList<T>
 {
     public static List<T> list = new List<T>();
 
+    public static int Count { get { return list.Count; } }
+
     public static T GetRandomItem()
     {
         if (list.Count == 0)

@@ -14,6 +14,15 @@ public interface iEnemyControl
 
 public class EnemyList : GlobalList<iEnemyControl>
 {
+    public static event deleFunc EnemyIsZero;
+
+    public static void RemoveEnemy(iEnemyControl target)
+    {
+        list.Remove(target);
+
+        if (list.Count == 0 && EnemyIsZero != null)
+            EnemyIsZero();
+    }
 }
 
 public class Enemy : MonoBehaviour, iEnemyControl
@@ -198,7 +207,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     protected virtual void DestroySelf()
     {
-        EnemyList.Remove(this);
+        EnemyList.RemoveEnemy(this);
         Destroy(gameObject);
     }
 
