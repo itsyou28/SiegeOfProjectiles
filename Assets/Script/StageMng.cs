@@ -2,112 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[System.Serializable]
-public class StageSet
-{
-    List<PhaseSet> listPhase;
-    int curPhaseIdx = 0;
-
-    public void AddPhase(PhaseSet data)
-    {
-        if (listPhase == null)
-            listPhase = new List<PhaseSet>();
-
-        listPhase.Add(data);
-    }
-
-    public PhaseSet StartPhase()
-    {
-        curPhaseIdx = 0;
-        return listPhase[0];
-    }
-
-    public PhaseSet NextPhase()
-    {
-        listPhase[curPhaseIdx].Reset();
-
-        if (curPhaseIdx >= listPhase.Count)
-            return null;
-
-        curPhaseIdx++;
-
-        return listPhase[curPhaseIdx];
-    }
-}
-
-[System.Serializable]
-public class PhaseSet
-{
-    Dictionary<int, EnemyPhaseData> list;
-
-    public void AddData(EnemyPhaseData data)
-    {
-        if (list == null)
-            list = new Dictionary<int, EnemyPhaseData>();
-
-        list.Add(data.EnemyType, data);
-    }
-
-    public int[] GetIncludeEnemyTypeList()
-    {
-        int[] returnArr = new int[list.Count];
-        list.Keys.CopyTo(returnArr, 0);
-
-        return returnArr;
-    }
-
-    public void Reset()
-    {
-        foreach (EnemyPhaseData data in list.Values)
-            data.Reset();
-    }
-
-    public bool Increase(int type)
-    {
-        return list[type].IncreaseCount();
-    }
-}
-
-[System.Serializable]
-public class EnemyPhaseData
-{
-    int m_iEnemyType;
-    int m_iEquantity;
-
-    [System.NonSerialized]
-    int m_iCreatedCound;
-
-    public int EnemyType { get { return m_iEnemyType; } }
-
-    public EnemyPhaseData(int type, int quantity)
-    {
-        m_iEnemyType = type;
-        m_iEquantity = quantity;
-    }
-
-    public void Reset()
-    {
-        m_iCreatedCound = 0;
-    }
-
-    public bool IncreaseCount()
-    {
-        m_iCreatedCound++;
-
-        if (m_iEquantity == m_iCreatedCound)
-            return true;
-
-        return false;
-    }
-}
-
 public class StageMng : MonoBehaviour
 {
     public GameObject[] enemyOrigin;
 
     Dictionary<int, StageSet> dicStage;
 
-    int curStageIdx;
+    int curStageIdx = 0;
 
     StageSet curStage;
     PhaseSet curPhase;
@@ -120,6 +21,7 @@ public class StageMng : MonoBehaviour
     float nextSpawnTime = 0.5f;
 
     bool IsAllCreated = false;
+    bool isPlaying = false;
 
     void Awake()
     {
@@ -128,12 +30,50 @@ public class StageMng : MonoBehaviour
         EnemyList.EnemyIsZero += OnEnemyIsZero; ;
     }
 
+    void Start()
+    {
+        State tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_Play);
+        tstate.EventStart += OnStartPlay;
+        tstate.EventEnd += OnEndPlay;
+
+        tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_StageGuide);
+        tstate.EventStart += OnStarStageGuide;
+
+        tstate = FSM_Manager.GetState(FSM_LAYER.USERSTORY, FSM_ID.USERSTORY, STATE_ID.US_MainMenu);
+        tstate.EventStart += OnStartMainMenu;
+    }
+
+    private void OnStartMainMenu(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        curStageIdx = 0;
+    }
+
+    private void OnStarStageGuide(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        OnChangeStage();
+    }
+
+    private void OnEndPlay(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        isPlaying = false;
+    }
+
+    private void OnStartPlay(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        isPlaying = true;
+    }
+
     private void OnEnemyIsZero()
     {
         if (EnemyList.Count == 0 && IsAllCreated)
         {
-            //Stage Clear!!
-
+            if (curStageIdx >= dicStage.Count - 1)
+                FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_ALL_CLEAR);
+            else
+            {
+                //Stage Clear!!
+                FSM_Manager.SetTrigger(FSM_LAYER.USERSTORY, TRANS_PARAM_ID.TRIGGER_CLEAR);
+            }
         }
     }
 
@@ -168,7 +108,7 @@ public class StageMng : MonoBehaviour
     
     void Update()
     {
-        if(!IsAllCreated)
+        if(isPlaying && !IsAllCreated)
             EnemySpawn();
     }
 
@@ -195,8 +135,9 @@ public class StageMng : MonoBehaviour
     {
         //현재 페이즈에서 생성할 수 있는 타입을 랜덤하게 선택해서 생성한다. 
         int randType = Random.Range(0, possibleTypeList.Length);
+        randType = possibleTypeList[randType];
 
-        GameObject obj = Instantiate(enemyOrigin[randType]);
+        GameObject obj = Instantiate(enemyOrigin[randType-1]);
 
         //생성지대의 z축을 랜덤지정해서 생성위치를 지정한다. 
         spawnPos.z = Random.Range(-50, 25);
@@ -217,7 +158,7 @@ public class StageMng : MonoBehaviour
             }
             BK_Function.RemoveAtArr(targetIdx, ref possibleTypeList);
 
-            if (possibleTypeList.Length == 0)
+            if (possibleTypeList == null)
                 OnChangePhase();
         }
     }
