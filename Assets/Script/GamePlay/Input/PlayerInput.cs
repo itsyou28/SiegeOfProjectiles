@@ -12,6 +12,16 @@ public interface iInput
     bool isPress { get; set; }
 }
 
+public class EmptyInput : iInput
+{
+    public void OnDown(Vector3 hitPos) { }
+    public void OnDrag(Vector3 hitPos) { }
+    public void OnPressUpdate() { }
+    public void OnUp(Vector3 hitPos) { }
+    
+    public bool isPress { get; set; }
+}
+
 public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     iInput curInputTarget;
@@ -23,12 +33,14 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     iInput iNormalMode;
     iInput iMeteoMode;
     iInput iObstacleMode;
+    iInput iEmpty;
     
     void Awake()
     {
         iNormalMode = normalMode.GetComponent<iInput>();
         iMeteoMode = meteoMode.GetComponent<iInput>();
         iObstacleMode = obstacleMode.GetComponent<iInput>();
+        iEmpty = new EmptyInput();
 
         curInputTarget = iNormalMode;
 
@@ -40,26 +52,33 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void OnActiveMeteo(params object[] args)
     {
+        curInputTarget.isPress = false;
         curInputTarget = iMeteoMode;
     }
 
     void OnDeactiveMeteo(params object[] args)
     {
-        curInputTarget = iNormalMode;
+        curInputTarget.isPress = false;
+        curInputTarget = iEmpty;
     }
 
     void OnActiveObstacle(params object[] args)
     {
+        curInputTarget.isPress = false;
         curInputTarget = iObstacleMode;
     }
 
     void OnDeactiveObstacle(params object[] args)
     {
-        curInputTarget = iNormalMode;
+        curInputTarget.isPress = false;
+        curInputTarget = iEmpty;
     }
 
     public void OnPointerDown(PointerEventData _data)
     {
+        if (curInputTarget == iEmpty)
+            curInputTarget = iNormalMode;
+
         curInputTarget.isPress = true;
         curInputTarget.OnDown(_data.pointerCurrentRaycast.worldPosition);
     }
