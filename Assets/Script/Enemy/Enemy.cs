@@ -4,6 +4,7 @@ using System.Collections;
 public interface iEnemyControl
 {
     void OnDamage(int damage=1);
+    void OnShield(int idx, int curHP, int damage);
     void OnDestroyedShield(int idx);
     void OnKnuckback(float pushpower);
     void OnMeteo();
@@ -49,6 +50,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     [SerializeField]
     protected float weight = 1; //1~5 높을수록 뒤로 덜 밀린다. 
+
+    [SerializeField]
+    E_Disp_Status hpdisp;
 
     protected FSM myFSM;
 
@@ -130,9 +134,15 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnDamage(int damage=1)
     {
+        hpdisp.ReduceHP(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP), damage);
         myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - damage);
         
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
+    }
+
+    public void OnShield(int idx, int curHP, int damage)
+    {
+        hpdisp.ReduceShield(idx, curHP, damage);
     }
 
     public void OnDestroyedShield(int targetShield)
