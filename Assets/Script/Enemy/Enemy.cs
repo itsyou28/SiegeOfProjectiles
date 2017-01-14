@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnDamage(int damage=1)
     {
-        hpdisp.ReduceHP(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP), damage);
+        hpdisp.DispHP(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP), damage);
         myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - damage);
         
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
