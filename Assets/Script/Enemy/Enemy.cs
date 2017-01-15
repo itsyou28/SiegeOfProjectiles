@@ -183,6 +183,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnGlobalAttack()
     {
+        if (transform == null)
+            return;
+
         Projectile bullet = GlobalAttackPool.Inst.Pop();
         bullet.Fire(transform.position);
         StartCoroutine(DelayGlobalAttack());
