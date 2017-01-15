@@ -24,6 +24,9 @@ public class Tower : MonoBehaviour
     [SerializeField]
     Transform corePos;
 
+    [SerializeField]
+    ParticleSystem damageEffect;
+
     int HP = 30;
     bool isDestroyed = false;
 
@@ -73,6 +76,7 @@ public class Tower : MonoBehaviour
     {
         //HP가 깍이고 흔들린다
         _ani.Play("Damage");
+        damageEffect.Play();
         HP -= 1;
 
         if (HP <= 0 && !isDestroyed)
