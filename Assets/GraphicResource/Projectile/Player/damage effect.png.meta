@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: 4e95ee16a40f91b40b3a045173ad6ed2
-timeCreated: 1484547468
+guid: 47153a9e8a013c942a8643c6443fe747
+timeCreated: 1484545129
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: projectile_0
-    21300002: projectile_1
-    21300004: projectile_2
-    21300006: projectile_3
-    21300008: projectile_4
-    21300010: projectile_5
-    21300012: projectile_6
-    21300014: projectile_7
+    21300000: damage effect_0
+    21300002: damage effect_1
+    21300004: damage effect_2
+    21300006: damage effect_3
+    21300008: damage effect_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -61,104 +58,65 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: projectile_0
+      name: damage effect_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 197
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 13
+        y: 35
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: projectile_1
+      name: damage effect_1
       rect:
         serializedVersion: 2
-        x: 128
-        y: 197
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 199
+        y: 35
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: projectile_2
+      name: damage effect_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 138
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 387
+        y: 35
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: projectile_3
+      name: damage effect_3
       rect:
         serializedVersion: 2
-        x: 128
-        y: 138
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
+        x: 571
+        y: 35
+        width: 146
+        height: 146
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: projectile_4
+      name: damage effect_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 79
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: projectile_5
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 79
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: projectile_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 20
-        width: 128
-        height: 59
-      alignment: 4
-      pivot: {x: 0, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: projectile_7
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 32
-        width: 78
-        height: 37
+        x: 754
+        y: 35
+        width: 146
+        height: 146
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
