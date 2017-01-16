@@ -69,6 +69,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
     bool[] arrIsDestroyShield;
     bool allShieldIsDestroyed = false;
 
+    bool isDead = false;
+
     protected virtual void Awake()
     {
         _text = transform.GetComponentInChildren<TextMesh>();
@@ -183,7 +185,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnGlobalAttack()
     {
-        if (transform == null)
+        if (isDead)
             return;
 
         Projectile bullet = GlobalAttackPool.Inst.Pop();
@@ -220,6 +222,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     protected virtual void DestroySelf()
     {
+        isDead = true;
         EnemyList.RemoveEnemy(this);
         Destroy(gameObject);
     }
