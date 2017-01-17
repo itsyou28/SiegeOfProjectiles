@@ -36,7 +36,8 @@ public enum TRANS_PARAM_ID
     TRIGGER_REINFORCE,
     TRIGGER_CLEAR,
     TRIGGER_ALL_CLEAR,
-    TRIGGER_GAMEOVER
+    TRIGGER_GAMEOVER,
+    BOOL_IS_TOWER_HAVE_ENEMY,
 }
 
 public enum STATE_ID
@@ -61,7 +62,11 @@ public enum STATE_ID
     US_Reinforce,
     US_Ending,
     US_GameOver,
-    US_StageGuide
+    US_StageGuide,
+    TowerAttack_Wait,
+    TowerAttack_EffectStart,
+    TowerAttack_Attack,
+    TowerAttack_AttackReady
 }
 
 

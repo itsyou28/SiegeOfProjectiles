@@ -69,6 +69,8 @@ public class Enemy : MonoBehaviour, iEnemyControl
     bool[] arrIsDestroyShield;
     bool allShieldIsDestroyed = false;
 
+    bool isDead = false;
+
     protected virtual void Awake()
     {
         _text = transform.GetComponentInChildren<TextMesh>();
@@ -134,7 +136,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnDamage(int damage=1)
     {
-        hpdisp.ReduceHP(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP), damage);
+        hpdisp.DispHP(myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP), damage);
         myFSM.SetInt_NoCondChk(TRANS_PARAM_ID.INT_HP, myFSM.GetParamInt(TRANS_PARAM_ID.INT_HP) - damage);
         
         myFSM.SetTrigger(TRANS_PARAM_ID.TRIGGER_HIT);
@@ -183,6 +185,9 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     public void OnGlobalAttack()
     {
+        if (isDead)
+            return;
+
         Projectile bullet = GlobalAttackPool.Inst.Pop();
         bullet.Fire(transform.position);
         StartCoroutine(DelayGlobalAttack());
@@ -217,6 +222,7 @@ public class Enemy : MonoBehaviour, iEnemyControl
 
     protected virtual void DestroySelf()
     {
+        isDead = true;
         EnemyList.RemoveEnemy(this);
         Destroy(gameObject);
     }

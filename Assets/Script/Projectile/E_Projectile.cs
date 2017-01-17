@@ -3,6 +3,9 @@ using System.Collections;
 
 public class E_Projectile : Projectile
 {
+    [SerializeField]
+    Animator _ani;
+
     const float speedMin = 0.3f;
     const float speedMax = 1;
     const float speedSum = speedMin + speedMax;
@@ -51,6 +54,11 @@ public class E_Projectile : Projectile
 
             transform.LookAt(targetPos);
         }
+        else if(!isCollide)
+        {
+            if (_ani.GetCurrentAnimatorStateInfo(0).IsName("E_Projectile"))
+                _ani.Play("E_Proj_T_OnGround");
+        }
         else
             _col.enabled = false;
     }
@@ -63,16 +71,10 @@ public class E_Projectile : Projectile
     
     void OnTriggerEnter(Collider col)
     {
-        //if (col.CompareTag("EnemyShield") || col.CompareTag("EnemyCore"))
-        //{
-
-        //    isCollide = true;
-        //    transform.SetParent(col.transform);
-        //    _col.enabled = false;
-        //}
         if(col.CompareTag("TowerCore"))
         {
             isCollide = true;
+            _ani.Play("E_Proj_T_Hit");
         }
     }
 
