@@ -1,9 +1,26 @@
 fileFormatVersion: 2
 guid: ab30660ed59f3ed4893b289e4d9ae369
-timeCreated: 1484476354
-licenseType: Pro
+timeCreated: 1484626187
+licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: tower_attack2_0
+    21300002: tower_attack2_1
+    21300004: tower_attack2_2
+    21300006: tower_attack2_3
+    21300008: tower_attack2_4
+    21300010: tower_attack2_5
+    21300012: tower_attack2_6
+    21300014: tower_attack2_7
+    21300016: tower_attack2_8
+    21300018: tower_attack2_9
+    21300020: tower_attack2_10
+    21300022: tower_attack2_11
+    21300024: tower_attack2_12
+    21300026: tower_attack2_13
+    21300028: tower_attack2_14
+    21300030: tower_attack2_15
+    21300032: tower_attack2_16
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -30,9 +47,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: -1
+    aniso: 16
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 1
   lightmap: 0
   rGBM: 0
@@ -47,11 +64,232 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: -1
+  textureType: 0
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: tower_attack2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1662
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_1
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 1662
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_2
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1662
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_3
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 1662
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_4
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 1662
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1276
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_6
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 1276
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_7
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1276
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_8
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 1276
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_9
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 1276
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 890
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_11
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 890
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_12
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 890
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_13
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 890
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_14
+      rect:
+        serializedVersion: 2
+        x: 1544
+        y: 890
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 504
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tower_attack2_16
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 504
+        width: 386
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

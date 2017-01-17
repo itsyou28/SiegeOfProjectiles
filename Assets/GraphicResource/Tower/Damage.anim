@@ -18,33 +18,28 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: -103.27801}
-        outSlope: {x: 0, y: 0, z: -103.27801}
+        inSlope: {x: 0, y: 0, z: -144}
+        outSlope: {x: 0, y: 0, z: -144}
         tangentMode: 0
       - time: 0.16666667
-        value: {x: 0, y: 0, z: -17.213001}
-        inSlope: {x: 0, y: 0, z: 0}
-        outSlope: {x: 0, y: 0, z: 0}
-        tangentMode: 0
-      - time: 0.33333334
-        value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: 114.12001}
-        outSlope: {x: 0, y: 0, z: 114.12001}
-        tangentMode: 0
-      - time: 0.5
-        value: {x: 0, y: 0, z: 20.827002}
+        value: {x: 0, y: 0, z: -24}
         inSlope: {x: 0, y: 0, z: 0.0000076293945}
         outSlope: {x: 0, y: 0, z: 0.0000076293945}
         tangentMode: 0
+      - time: 0.5
+        value: {x: 0, y: 0, z: 24}
+        inSlope: {x: 0, y: 0, z: 0.000015258789}
+        outSlope: {x: 0, y: 0, z: 0.000015258789}
+        tangentMode: 0
       - time: 0.6666667
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: 0, z: -124.962}
-        outSlope: {x: 0, y: 0, z: -124.962}
+        inSlope: {x: 0, y: 0, z: -143.99998}
+        outSlope: {x: 0, y: 0, z: -143.99998}
         tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Ball
+    path: SpriteRoot/Ball
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -56,7 +51,7 @@ AnimationClip:
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
     genericBindings:
-    - path: 3556829029
+    - path: 3133761386
       attribute: 4
       script: {fileID: 0}
       classID: 4
@@ -92,6 +87,16 @@ AnimationClip:
         inSlope: 0
         outSlope: 0
         tangentMode: 10
+      - time: 0.16666667
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 0.5
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
       - time: 0.6666667
         value: 0
         inSlope: 0
@@ -101,13 +106,23 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Ball
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   - curve:
       serializedVersion: 2
       m_Curve:
       - time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 0.16666667
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 10
+      - time: 0.5
         value: 0
         inSlope: 0
         outSlope: 0
@@ -121,7 +136,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Ball
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -129,34 +144,29 @@ AnimationClip:
       m_Curve:
       - time: 0
         value: 0
-        inSlope: -103.27801
-        outSlope: -103.27801
+        inSlope: -144
+        outSlope: -144
         tangentMode: 10
       - time: 0.16666667
-        value: -17.213001
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 10
-      - time: 0.33333334
-        value: 0
-        inSlope: 114.12001
-        outSlope: 114.12001
-        tangentMode: 10
-      - time: 0.5
-        value: 20.827002
+        value: -24
         inSlope: 0.0000076293945
         outSlope: 0.0000076293945
         tangentMode: 10
+      - time: 0.5
+        value: 24
+        inSlope: 0.000015258789
+        outSlope: 0.000015258789
+        tangentMode: 10
       - time: 0.6666667
         value: 0
-        inSlope: -124.962
-        outSlope: -124.962
+        inSlope: -143.99998
+        outSlope: -143.99998
         tangentMode: 10
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Ball
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -166,8 +176,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Ball
+    attribute: m_LocalEulerAngles.z
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -177,7 +187,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Ball
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -186,8 +196,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Ball
+    attribute: m_LocalEulerAngles.x
+    path: SpriteRoot/Ball
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

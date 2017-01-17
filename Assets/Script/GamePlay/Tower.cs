@@ -27,6 +27,9 @@ public class Tower : MonoBehaviour
     [SerializeField]
     ParticleSystem damageEffect;
 
+    [SerializeField]
+    ParticleSystem attackEffect;
+
     int HP = 30;
     bool isDestroyed = false;
 
@@ -35,30 +38,73 @@ public class Tower : MonoBehaviour
     Vector3 attackColWaitPos;
     Vector3 attackColAttackPos;
 
+    FSM attackSequence = new FSM(FSM_ID.NONE);
+
     void Awake()
     {
         attackColWaitPos = attackCollider.transform.position;
         attackColAttackPos = attackColWaitPos;
-        attackColAttackPos.x += 20;
+        attackColAttackPos.x += 30;
         GlobalTowerInfo.Add(this);
+
+        CreateTowerAttackSequence();
     }
 
-    float accumeTime = 0;
+    void CreateTowerAttackSequence()
+    {
+        attackSequence.AddParamBool(TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, false);
 
+        attackSequence.GetAnyState().AddTransition(
+            new TransitionCondition(STATE_ID.TowerAttack_Wait, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_RESET)));
+
+        attackSequence.MakeStateFactory(STATE_ID.TowerAttack_Wait,
+            new TransitionCondition(STATE_ID.TowerAttack_AttackReady, 0, 0,
+                new TransCondWithParam(TransitionType.TRIGGER, TRANS_PARAM_ID.TRIGGER_NEXT)));
+        attackSequence.MakeStateFactory(STATE_ID.TowerAttack_AttackReady,
+            new TransitionCondition(STATE_ID.TowerAttack_EffectStart, 0, 0.8f,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, true)),
+            new TransitionCondition(STATE_ID.TowerAttack_Wait, 0, 0.8f,
+                new TransCondWithParam(TransitionType.BOOL, TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, false)));
+        attackSequence.MakeStateFactory(STATE_ID.TowerAttack_EffectStart,
+            new TransitionCondition(STATE_ID.TowerAttack_Attack, 0, 1.2f));
+        attackSequence.MakeStateFactory(STATE_ID.TowerAttack_Attack,
+            new TransitionCondition(STATE_ID.TowerAttack_AttackReady, 0, 0.3f));
+
+        attackSequence.EventStateChange += OnChangeAttackSequence;
+
+        attackSequence.Resume();
+
+        attackSequence.SetTrigger(TRANS_PARAM_ID.TRIGGER_RESET);
+    }
+
+    private void OnChangeAttackSequence(TRANS_ID transID, STATE_ID stateID, STATE_ID preStateID)
+    {
+        switch(stateID)
+        {
+            case STATE_ID.TowerAttack_Wait:
+                break;
+            case STATE_ID.TowerAttack_AttackReady:
+                attackCollider.transform.position = attackColWaitPos;
+                break;
+            case STATE_ID.TowerAttack_EffectStart:
+                attackSequence.SetBool_NoCondChk(TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, false);
+                attackEffect.Play();
+                break;
+            case STATE_ID.TowerAttack_Attack:
+                attackCollider.transform.position = attackColAttackPos;
+                break;
+        }
+    }
+    
     void Update()
     {
-        accumeTime += Time.deltaTime;
+        attackSequence.TimeCheck();
+    }
 
-        if(accumeTime>=2 && accumeTime < 3)
-        {
-            attackCollider.transform.position = attackColAttackPos;
-            accumeTime = 3;
-        }
-        if(accumeTime >= 3.3f)
-        {
-            attackCollider.transform.position = attackColWaitPos;
-            accumeTime = 0;
-        }
+    public void OnAttackEnemy()
+    {
+        attackSequence.SetBool_NoCondChk(TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, true);
     }
     
     void DestroySelf()
@@ -78,6 +124,9 @@ public class Tower : MonoBehaviour
         _ani.Play("Damage");
         damageEffect.Play();
         HP -= 1;
+
+        attackSequence.SetBool(TRANS_PARAM_ID.BOOL_IS_TOWER_HAVE_ENEMY, true);
+        attackSequence.SetTrigger(TRANS_PARAM_ID.TRIGGER_NEXT);
 
         if (HP <= 0 && !isDestroyed)
             DestroySelf();
