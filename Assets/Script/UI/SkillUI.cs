@@ -15,14 +15,18 @@ public class SkillUI : MonoBehaviour
     [SerializeField]
     Image chargeImg;
 
-    public float CurrentCharge
+    Bindable<float> bindData;
+
+    public void SetData(Bindable<float> data)
     {
-        get { return chargeImg.fillAmount; }
-        set { chargeImg.fillAmount = value; }
+        bindData = data;
     }
 
-    //public bool Is
-    
+    public void OnDataChange()
+    {
+        chargeImg.fillAmount = bindData.Value;
+    }
+        
     void Awake()
     {
         BK_EMC.Inst.AddEventCallBackFunction(activeEvent, OnActive);
