@@ -20,9 +20,7 @@ public class SkillUI : MonoBehaviour
         get { return chargeImg.fillAmount; }
         set { chargeImg.fillAmount = value; }
     }
-
-    //public bool Is
-    
+        
     void Awake()
     {
         BK_EMC.Inst.AddEventCallBackFunction(activeEvent, OnActive);

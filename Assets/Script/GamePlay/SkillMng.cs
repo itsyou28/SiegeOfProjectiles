@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.ComponentModel;
 
 public interface iSkill
 {
@@ -30,9 +29,8 @@ public class SkillMng : MonoBehaviour, iSkill
         }
     }
 
-    class SkillData : INotifyPropertyChanged
+    class SkillData
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         //시간당 충전량
         //최대 충전량
         //현재 충전량
