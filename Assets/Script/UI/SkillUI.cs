@@ -24,7 +24,7 @@ public class SkillUI : MonoBehaviour
 
     public void OnDataChange()
     {
-        chargeImg.fillAmount = bindData.Value;
+        chargeImg.fillAmount = 1-bindData.Value;
     }
         
     void Awake()
