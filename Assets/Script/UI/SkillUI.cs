@@ -15,10 +15,16 @@ public class SkillUI : MonoBehaviour
     [SerializeField]
     Image chargeImg;
 
-    public float CurrentCharge
+    Bindable<float> bindData;
+
+    public void SetData(Bindable<float> data)
     {
-        get { return chargeImg.fillAmount; }
-        set { chargeImg.fillAmount = value; }
+        bindData = data;
+    }
+
+    public void OnDataChange()
+    {
+        chargeImg.fillAmount = 1-bindData.Value;
     }
         
     void Awake()

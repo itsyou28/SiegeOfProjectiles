@@ -2,13 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum UI_ID
-{
-    Skill1,
-    Skill2,
-    Skill3
-}
-
 public class UIBinder : MonoBehaviour
 {
     private static UIBinder instance = null;
@@ -23,20 +16,51 @@ public class UIBinder : MonoBehaviour
         }
     }
 
-    Dictionary<UI_ID, SkillUI> dicUIList;
-
-    [SerializeField]
-    UI_ID[] arrUI_ID;
-    [SerializeField]
-    SkillUI[] arrSkillUI;
+    UIBind<float>[] arrCharge;
+    UIBind<bool>[] arrEnable;
 
     void Awake()
     {
-        dicUIList = new Dictionary<UI_ID, SkillUI>();
+        arrCharge = GetComponentsInChildren<UIBind<float>>();
+        Debug.Log(arrCharge.Length);
+        arrEnable = GetComponentsInChildren<UIBind<bool>>();
+    }
+    
+    public void Bind(Bindable<float> data, int idx)
+    {
+        data.valueChanged += arrCharge[idx].OnDataChange;
+        arrCharge[idx].SetData(data);
+    }
 
-        for(int idx=0; idx<arrUI_ID.Length; idx++)
+    public void Bind(Bindable<bool> data, int idx)
+    {
+        data.valueChanged += arrEnable[idx].OnDataChange;
+        arrEnable[idx].SetData(data);
+    }
+}
+
+public class Bindable<T>
+{
+    private T value;
+
+    public event deleFunc valueChanged;
+
+    public T Value
+    {
+        get
         {
-            dicUIList.Add(arrUI_ID[idx], arrSkillUI[idx]);
+            return value;
         }
+        set
+        {
+            this.value = value;
+            OnValueChange();
+        }
+    }
+    
+    void OnValueChange()
+    {
+        if (valueChanged != null)
+            valueChanged();
     }
 }
