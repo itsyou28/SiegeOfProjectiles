@@ -10,6 +10,13 @@ public class InputObstacleMode : MonoBehaviour, iInput
 
     float accumeTime = 0;
 
+    Skill obstacle;
+
+    void Start()
+    {
+        obstacle = SkillMng.Inst.GetObstacleSkillData();
+    }
+
     public void OnDown(Vector3 hitPos)
     {
         targetPos = hitPos;
@@ -31,6 +38,8 @@ public class InputObstacleMode : MonoBehaviour, iInput
             obj.gameObject.SetActive(true);
 
             accumeTime -= 0.2f;
+
+            obstacle.Use();
         }
     }
 
