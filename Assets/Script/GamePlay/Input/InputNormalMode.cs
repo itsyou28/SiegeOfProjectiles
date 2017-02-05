@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class InputNormalMode : MonoBehaviour, iInput
 {
@@ -17,6 +18,9 @@ public class InputNormalMode : MonoBehaviour, iInput
     float aimHeight;
 
     const int max = 10;
+
+    Queue<Vector3> fireQueue = new Queue<Vector3>();
+    Queue<float> aimHeightQueue = new Queue<float>();
 
     void Awake()
     {
@@ -53,9 +57,31 @@ public class InputNormalMode : MonoBehaviour, iInput
     public void OnUp(Vector3 hitPos)
     {
         if (curCursor != null)
-            FireManager.Inst.Fire(curCursor.position, aimHeight);
+        {
+            fireQueue.Enqueue(curCursor.position);
+            aimHeightQueue.Enqueue(aimHeight);
+        }
 
         curCursor = null;
+    }
+
+    float accumeTime = 0;
+    const float fireRate = 0.5f;
+    void Update()
+    {
+        if(fireQueue.Count > 0)
+        {
+            accumeTime += Time.deltaTime;
+
+            if (accumeTime > fireRate)
+            {
+                FireManager.Inst.Fire(fireQueue.Dequeue(), aimHeightQueue.Dequeue());
+                accumeTime -= fireRate;
+            }
+
+            if (fireQueue.Count == 0)
+                accumeTime = 0;
+        }
     }
 
     Vector3[] linePoints = new Vector3[max];
