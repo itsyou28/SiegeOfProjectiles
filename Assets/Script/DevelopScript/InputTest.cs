@@ -43,7 +43,7 @@ public class InputTest : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            FireManager.Inst.Fire(targetPos.position, aimHeight);
+            FireManager.Inst.Fire(targetPos, aimHeight);
         }
     }
 
