@@ -15,6 +15,7 @@ public class OnShield : OnEnemyCollider
 
     private void ReduceShieldHP(int reduceValue)
     {
+        iControl.OnShield(shieldIdx, shieldHP, reduceValue);
         shieldHP -= reduceValue;
 
         if (shieldHP <= 0)

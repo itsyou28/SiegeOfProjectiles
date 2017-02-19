@@ -1,12 +1,12 @@
 fileFormatVersion: 2
 guid: bb93aab4cbdfb42c88786521054a3e71
-timeCreated: 1482545977
+timeCreated: 1485847671
 licenseType: Pro
 PluginImporter:
   serializedVersion: 1
   iconMap: {}
   executionOrder:
-    DocsPin.DocsRoot: -1000
+    DocsPin.DocsRoot: -1050
   isPreloaded: 0
   platformData:
     Any:

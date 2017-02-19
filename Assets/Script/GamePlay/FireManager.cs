@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FireManager : MonoBehaviour
 {
@@ -19,7 +20,39 @@ public class FireManager : MonoBehaviour
     Vector3 targetPos;
     float targetHeight;
 
-    public void Fire(Vector3 to, float aimHeight)
+    Queue<Vector3> fireQueue = new Queue<Vector3>();
+    Queue<float> aimHeightQueue = new Queue<float>();
+
+    float accumeTime = 0;
+    const float fireRate = 0.5f;
+    void Update()
+    {
+        if (fireQueue.Count > 0)
+        {
+            accumeTime += Time.deltaTime;
+
+            if (accumeTime > fireRate)
+            {
+                Fire(fireQueue.Dequeue(), aimHeightQueue.Dequeue());
+                accumeTime -= fireRate;
+            }
+
+            if (fireQueue.Count == 0)
+                accumeTime = 0;
+        }
+    }
+
+    public void Fire(Transform obj, float aimHeight)
+    {
+        fireQueue.Enqueue(obj.position);
+        aimHeightQueue.Enqueue(aimHeight);
+        float fireRemainTime = accumeTime + ((fireQueue.Count - 1) * fireRate);
+
+        obj.gameObject.GetComponent<DeerStarTarget>().Fire(fireRemainTime, 
+            Prjt_DeerStar.CalDurationOfFlight(player.position, obj.position, aimHeight)*1.35f);
+    }
+
+    void Fire(Vector3 to, float aimHeight)
     {
         targetPos = to;
         targetHeight = aimHeight;
