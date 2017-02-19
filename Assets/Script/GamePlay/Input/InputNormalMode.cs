@@ -18,6 +18,7 @@ public class InputNormalMode : MonoBehaviour, iInput
 
     const int max = 10;
 
+
     void Awake()
     {
         _line.SetVertexCount(max);
@@ -53,10 +54,11 @@ public class InputNormalMode : MonoBehaviour, iInput
     public void OnUp(Vector3 hitPos)
     {
         if (curCursor != null)
-            FireManager.Inst.Fire(curCursor.position, aimHeight);
+            FireManager.Inst.Fire(curCursor, aimHeight);
 
         curCursor = null;
     }
+
 
     Vector3[] linePoints = new Vector3[max];
 

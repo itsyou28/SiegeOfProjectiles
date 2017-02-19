@@ -34,7 +34,10 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     iInput iMeteoMode;
     iInput iObstacleMode;
     iInput iEmpty;
-    
+
+    const float adjustX = -5;
+    Vector3 raycastResult;
+
     void Awake()
     {
         iNormalMode = normalMode.GetComponent<iInput>();
@@ -80,18 +83,25 @@ public class PlayerInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             curInputTarget = iNormalMode;
 
         curInputTarget.isPress = true;
-        curInputTarget.OnDown(_data.pointerCurrentRaycast.worldPosition);
+
+        raycastResult = _data.pointerCurrentRaycast.worldPosition;
+        raycastResult.x += adjustX;
+        curInputTarget.OnDown(raycastResult);
     }
 
     public void OnPointerUp(PointerEventData _data)
     {
-        curInputTarget.OnUp(_data.pointerCurrentRaycast.worldPosition);
+        raycastResult = _data.pointerCurrentRaycast.worldPosition;
+        raycastResult.x += adjustX;
+        curInputTarget.OnUp(raycastResult);
         curInputTarget.isPress = false;
     }
 
     public void OnDrag(PointerEventData _data)
     {
-        curInputTarget.OnDrag(_data.pointerCurrentRaycast.worldPosition);
+        raycastResult = _data.pointerCurrentRaycast.worldPosition;
+        raycastResult.x += adjustX;
+        curInputTarget.OnDrag(raycastResult);
     }
         
     void Update()
