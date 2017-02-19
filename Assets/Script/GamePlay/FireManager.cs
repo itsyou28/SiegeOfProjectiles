@@ -46,6 +46,10 @@ public class FireManager : MonoBehaviour
     {
         fireQueue.Enqueue(obj.position);
         aimHeightQueue.Enqueue(aimHeight);
+        float fireRemainTime = accumeTime + ((fireQueue.Count - 1) * fireRate);
+
+        obj.gameObject.GetComponent<DeerStarTarget>().Fire(fireRemainTime, 
+            Prjt_DeerStar.CalDurationOfFlight(player.position, obj.position, aimHeight)*1.35f);
     }
 
     void Fire(Vector3 to, float aimHeight)
